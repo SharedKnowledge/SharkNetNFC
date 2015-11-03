@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
-public class MyHostApduService extends HostApduService {
+public class NfcTagCardEmulationService extends HostApduService {
 
     private int messageCounter = 0;
 

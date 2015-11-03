@@ -1,4 +1,4 @@
-package net.mnio.sharknetnfc;
+package net.mnio.sharknetnfc.p2p;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

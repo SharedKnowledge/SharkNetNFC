@@ -15,7 +15,7 @@ import net.mnio.sharknetnfc.R;
 import java.util.Arrays;
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
-public class MainActivity2 extends Activity implements IsoDepTransceiver.OnMessageReceived, ReaderCallback {
+public class MainActivity2 extends Activity implements OnMessageReceived, ReaderCallback {
 
     private NfcAdapter nfcAdapter;
     private ListView listView;
@@ -34,6 +34,7 @@ public class MainActivity2 extends Activity implements IsoDepTransceiver.OnMessa
     @Override
     public void onResume() {
         super.onResume();
+        // http://stackoverflow.com/questions/27939030/alternative-way-for-enablereadermode-to-work-with-android-apis-lesser-than-19
         nfcAdapter.enableReaderMode(this, this, NfcAdapter.FLAG_READER_NFC_A | NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
                 null);
     }
@@ -48,7 +49,6 @@ public class MainActivity2 extends Activity implements IsoDepTransceiver.OnMessa
     public void onTagDiscovered(Tag tag) {
         IsoDep isoDep = IsoDep.get(tag);
         if (isoDep == null) {
-            System.out.println("Null...: " + Arrays.toString(tag.getTechList()));
             return;
         }
         IsoDepTransceiver transceiver = new IsoDepTransceiver(isoDep, this);

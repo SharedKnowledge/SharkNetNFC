@@ -6,14 +6,6 @@ import java.io.IOException;
 
 public class IsoDepTransceiver implements Runnable {
 
-
-    public interface OnMessageReceived {
-
-        void onMessage(byte[] message);
-
-        void onError(Exception exception);
-    }
-
     private IsoDep isoDep;
     private OnMessageReceived onMessageReceived;
 
