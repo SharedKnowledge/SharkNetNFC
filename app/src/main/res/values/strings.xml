@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SharkNetNFC</string>
     <string name="action_settings">Settings</string>
+
+    <string name="servicedesc">servicedesc</string>
+    <string name="aiddescription">aiddescription</string>
 </resources>
