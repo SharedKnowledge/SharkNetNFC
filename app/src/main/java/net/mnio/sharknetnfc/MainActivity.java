@@ -11,6 +11,18 @@ public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton actionButton;
 
+    enum NFC_MODE {
+        P2P(R.id.action_settings_p2p), HCE(R.id.action_settings_hce);
+
+        public final int menuItemId;
+
+        NFC_MODE(int menuItemId) {
+            this.menuItemId = menuItemId;
+        }
+    }
+
+    private NFC_MODE mode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
+        if (mode == null) {
+            mode = NFC_MODE.P2P;
+        }
     }
 
 //    @Override
@@ -42,15 +56,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        for (NFC_MODE availableMode : NFC_MODE.values()) {
+            MenuItem item = menu.findItem(availableMode.menuItemId);
+            if (mode == availableMode) {
+                item.setChecked(true);
+                continue;
+            }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            if (item.isCheckable()) {
+                item.setChecked(false);
+            }
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        for (NFC_MODE availableMode : NFC_MODE.values()) {
+            if (availableMode.menuItemId == item.getItemId()) {
+                mode = availableMode;
+                return true;
+            }
         }
 
         return super.onOptionsItemSelected(item);
