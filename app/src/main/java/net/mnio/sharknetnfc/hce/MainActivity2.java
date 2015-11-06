@@ -35,6 +35,10 @@ public class MainActivity2 extends Activity implements OnMessageReceived, Reader
     public void onResume() {
         super.onResume();
         // http://stackoverflow.com/questions/27939030/alternative-way-for-enablereadermode-to-work-with-android-apis-lesser-than-19
+        if (nfcAdapter == null) {
+            //No nfc!
+            return;
+        }
         nfcAdapter.enableReaderMode(this, this, NfcAdapter.FLAG_READER_NFC_A | NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
                 null);
     }

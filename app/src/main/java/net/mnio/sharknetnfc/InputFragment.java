@@ -1,4 +1,4 @@
-package net.mnio.sharknetnfc.p2p;
+package net.mnio.sharknetnfc;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import net.mnio.sharknetnfc.R;
 import net.mnio.sharknetnfc.p2p.AndroidBeamHelper;
 
-public class BeamActivityFragment extends Fragment {
+public class InputFragment extends Fragment {
 
-    public BeamActivityFragment() {
+    public InputFragment() {
     }
 
     @Override

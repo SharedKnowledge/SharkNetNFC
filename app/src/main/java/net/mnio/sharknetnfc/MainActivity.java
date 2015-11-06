@@ -1,15 +1,12 @@
 package net.mnio.sharknetnfc;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
-
-    private FloatingActionButton actionButton;
 
     enum NFC_MODE {
         P2P(R.id.action_settings_p2p), HCE(R.id.action_settings_hce);
@@ -30,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        actionButton = (FloatingActionButton) findViewById(R.id.fab);
+//        actionButton = (FloatingActionButton) findViewById(R.id.fab);
     }
 
     @Override
@@ -50,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
