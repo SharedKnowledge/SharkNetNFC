@@ -28,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         return mode;
     }
 
+    private void setMode(NFC_MODE availableMode) {
+        mode = availableMode;
+        final Fragment fragmentById = getSupportFragmentManager().findFragmentById(R.id.fragment);
+        fragmentById.onStop();
+        fragmentById.onStart();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,10 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         for (NFC_MODE availableMode : NFC_MODE.values()) {
             if (availableMode.menuItemId == item.getItemId()) {
-                mode = availableMode;
-                final Fragment fragmentById = getSupportFragmentManager().findFragmentById(R.id.fragment);
-                fragmentById.onStop();
-                fragmentById.onStart();
+                setMode(availableMode);
                 return true;
             }
         }
