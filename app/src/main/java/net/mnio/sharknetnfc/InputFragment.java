@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import net.mnio.sharknetnfc.p2p.AndroidBeamHelper;
 
 public class InputFragment extends Fragment {
+
+    private EditText editText;
 
     public InputFragment() {
     }
@@ -24,15 +25,25 @@ public class InputFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        editText = (EditText) getView().findViewById(R.id.input);
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        TextView input = (TextView) getView().findViewById(R.id.input);
 
-        boolean success = AndroidBeamHelper.register(getActivity(), input);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        final MainActivity activity = (MainActivity) getActivity();
+        editText.setText(activity.getMode().name());
+
+        boolean success = AndroidBeamHelper.register(getActivity(), editText);
         if (!success) {
             Snackbar.make(getView(), "NFC not available", Snackbar.LENGTH_LONG).show();
         }
@@ -41,9 +52,8 @@ public class InputFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        EditText output = (EditText) getView().findViewById(R.id.input);
-        clearCursor(output);
-        AndroidBeamHelper.readData(getActivity().getIntent(), output);
+        clearCursor(editText);
+        AndroidBeamHelper.readData(getActivity().getIntent(), editText);
     }
 
     private void clearCursor(EditText output) {

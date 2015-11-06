@@ -1,6 +1,7 @@
 package net.mnio.sharknetnfc;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,6 +21,13 @@ public class MainActivity extends AppCompatActivity {
 
     private NFC_MODE mode;
 
+    public NFC_MODE getMode() {
+        if (mode == null) {
+            mode = NFC_MODE.P2P;
+        }
+        return mode;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (mode == null) {
-            mode = NFC_MODE.P2P;
-        }
     }
 
 //    @Override
@@ -73,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
         for (NFC_MODE availableMode : NFC_MODE.values()) {
             if (availableMode.menuItemId == item.getItemId()) {
                 mode = availableMode;
+                final Fragment fragmentById = getSupportFragmentManager().findFragmentById(R.id.fragment);
+                fragmentById.onStop();
+                fragmentById.onStart();
                 return true;
             }
         }
