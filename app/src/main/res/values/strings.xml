@@ -5,4 +5,7 @@
     <string name="button_start_p2p">Start Beam</string>
     <string name="button_start_hce">Start Card-Emulation</string>
     <string name="button_exit">exit</string>
+
+    <string name="service_description">APDU service</string>
+    <string name="aid_description">AID description</string>
 </resources>

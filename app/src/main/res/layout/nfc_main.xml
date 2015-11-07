@@ -5,9 +5,9 @@
 
     <Button
         android:id="@+id/exitButton"
-        android:text="@string/button_exit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/button_exit" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,20 +26,32 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="top"
-            android:padding="5dp" />
+            android:isScrollContainer="false"
+            android:padding="5dp"
+            android:scrollbars="vertical" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Received:" />
 
-        <TextView
-            android:id="@+id/outputTextView"
-            android:layout_width="match_parent"
+        <ScrollView
+            android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="top"
-            android:padding="5dp" />
+            android:fillViewport="true"
+            android:isScrollContainer="false"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/outputTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="5dp" />
+
+        </ScrollView>
+
     </LinearLayout>
 
 
