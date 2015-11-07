@@ -1,94 +1,103 @@
 package net.mnio.sharknetnfc;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import static net.mnio.sharknetnfc.MainActivity.NFC_MODE.*;
+
+public class MainActivity extends Activity {
+
+    private final View.OnClickListener modeToggleListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final NFC_MODE mode = getMode();
+            switch (mode) {
+                case P2P:
+                    setMode(HCE);
+                    break;
+                case HCE:
+                    setMode(P2P);
+                    break;
+            }
+
+        }
+    };
+    private EditText input;
+    private TextView output;
 
     enum NFC_MODE {
-        P2P(R.id.action_settings_p2p), HCE(R.id.action_settings_hce);
-
-        public final int menuItemId;
-
-        NFC_MODE(int menuItemId) {
-            this.menuItemId = menuItemId;
-        }
+        P2P, HCE;
     }
 
-    private NFC_MODE mode;
+    Button modeButton;
+    NFC_MODE mode;
 
     public NFC_MODE getMode() {
         if (mode == null) {
-            mode = NFC_MODE.P2P;
+            setMode(P2P);
         }
         return mode;
     }
 
-    private void setMode(NFC_MODE availableMode) {
-        mode = availableMode;
-        final Fragment fragmentById = getSupportFragmentManager().findFragmentById(R.id.fragment);
-        fragmentById.onStop();
-        fragmentById.onStart();
+    private void setMode(NFC_MODE mode) {
+        this.mode = mode;
+        modeButton.setText("active: " + mode.name());
+
+        boolean success = AndroidBeamHelper.register(this, input);
+        if (!success) {
+            Toast.makeText(this, "NFC not available", Toast.LENGTH_LONG).show();
+        }
     }
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    }
 
-//        actionButton = (FloatingActionButton) findViewById(R.id.fab);
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        setIntent(intent);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-    }
 
-//    @Override
-//    public void onNewIntent(Intent intent) {
-//        System.out.println("onNewIntent start");
-//        setIntent(intent);
-//        System.out.println("onNewIntent done");
-//    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        for (NFC_MODE availableMode : NFC_MODE.values()) {
-            MenuItem item = menu.findItem(availableMode.menuItemId);
-            if (mode == availableMode) {
-                item.setChecked(true);
-                continue;
-            }
-
-            if (item.isCheckable()) {
-                item.setChecked(false);
-            }
+        if (input == null || output == null) {
+            input = (EditText) findViewById(R.id.inputTextView);
+            output = (TextView) findViewById(R.id.outputTextView);
         }
 
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        for (NFC_MODE availableMode : NFC_MODE.values()) {
-            if (availableMode.menuItemId == item.getItemId()) {
-                setMode(availableMode);
-                return true;
-            }
+        if (modeButton == null) {
+            modeButton = (Button) findViewById(R.id.modeButton);
+            modeButton.setOnClickListener(modeToggleListener);
+            setMode(P2P);
         }
 
-        return super.onOptionsItemSelected(item);
+        clearCursor();
+        AndroidBeamHelper.readData(getIntent(), output);
+    }
+
+    private void clearCursor() {
+        input.clearFocus();
+        input.setCursorVisible(false);
+        input.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EditText) v).setCursorVisible(true);
+                v.setOnClickListener(null);
+            }
+        });
     }
 }

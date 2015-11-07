@@ -1,4 +1,4 @@
-package net.mnio.sharknetnfc.p2p;
+package net.mnio.sharknetnfc;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -9,29 +9,41 @@ import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Build;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import static android.nfc.NdefRecord.createMime;
+import static android.nfc.NfcAdapter.ACTION_NDEF_DISCOVERED;
+import static android.nfc.NfcAdapter.CreateNdefMessageCallback;
+import static android.nfc.NfcAdapter.EXTRA_NDEF_MESSAGES;
+import static android.nfc.NfcAdapter.getDefaultAdapter;
 
 public class AndroidBeamHelper {
 
     static NfcAdapter mNfcAdapter;
     static TextView input;
 
-    static final NfcAdapter.CreateNdefMessageCallback MESSAGE_CALLBACK = new NfcAdapter.CreateNdefMessageCallback() {
+    static final CreateNdefMessageCallback MESSAGE_CALLBACK = new CreateNdefMessageCallback() {
+
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public NdefMessage createNdefMessage(NfcEvent event) {
-            String inputString = input.getText().toString();
-            NdefRecord mime = createMime("application/net.mnio.sharknetnfc", inputString.getBytes());
-            NdefRecord[] ndefRecords = {mime};
-            return new NdefMessage(ndefRecords);
+            String inputString = "Beam Time: " + System.currentTimeMillis();
+            if (input != null) {
+                String tmp = input.getText().toString().trim();
+                if (!TextUtils.isEmpty(tmp)) {
+                    inputString = tmp;
+                }
+            }
+
+            NdefMessage msg = new NdefMessage(new NdefRecord[]{createMime("application/net.mnio.sharknetnfc", inputString.getBytes())});
+            return msg;
         }
     };
 
     public static boolean register(Activity activity, TextView input) {
         AndroidBeamHelper.input = input;
-        mNfcAdapter = NfcAdapter.getDefaultAdapter(activity);
+        mNfcAdapter = getDefaultAdapter(activity);
         if (mNfcAdapter == null) return false;
 
         mNfcAdapter.setNdefPushMessageCallback(MESSAGE_CALLBACK, activity);
@@ -39,9 +51,9 @@ public class AndroidBeamHelper {
     }
 
     public static void readData(Intent intent, TextView output) {
-        if (intent == null || !NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) return;
+        if (intent == null || !ACTION_NDEF_DISCOVERED.equals(intent.getAction())) return;
 
-        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(EXTRA_NDEF_MESSAGES);
 
         StringBuilder builder = new StringBuilder();
 
