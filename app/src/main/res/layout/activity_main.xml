@@ -6,14 +6,27 @@
     <Button
         android:id="@+id/p2pButton"
         android:layout_width="match_parent"
-        android:text="@string/button_start_p2p"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/button_start_p2p" />
 
     <Button
         android:id="@+id/hceButton"
-        android:layout_below="@id/p2pButton"
         android:layout_width="match_parent"
-        android:text="@string/button_start_hce"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/p2pButton"
+        android:text="@string/button_start_hce" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hceButton"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" />
+    </ScrollView>
 
 </RelativeLayout>

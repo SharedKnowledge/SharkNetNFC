@@ -3,7 +3,10 @@ package net.mnio.sharknetnfc;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
@@ -37,5 +40,7 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.hceButton).setOnClickListener(onClickListener);
         findViewById(R.id.p2pButton).setOnClickListener(onClickListener);
+        final Spanned text = Html.fromHtml(getString(R.string.welcome));
+        ((TextView) findViewById(R.id.welcomeText)).setText(text);
     }
 }

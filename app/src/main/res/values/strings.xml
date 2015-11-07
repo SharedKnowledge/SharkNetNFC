@@ -3,10 +3,45 @@
     <string name="p2p_activity">Shark NFC: Beam mode</string>
     <string name="hce_activity">Shark NFC: Card mode</string>
     <string name="button_start_p2p">Start Beam</string>
-    <string name="button_start_hce">Start Card-Emulation</string>
+    <string name="button_start_hce">Start CardEmulation</string>
     <string name="button_exit">exit</string>
 
     <string name="service_description">APDU service</string>
     <string name="aid_description">AID description</string>
     <string name="button_send">Send</string>
+
+    <string name="welcome"><![CDATA[
+        <h1>Beam Mode</h1>
+        This is using android Beam, which implements NFC as a P2P solution.
+        <h4>How sending works: </h4>
+        Press \"Send\" to register a callback on NFC detection. On this event the input field is been read and the text wrapped into a NDEFMessage.
+        On NFC detection both devices will offer a touch screen confirmation, in which the touched one triggers the \"send\" callback.
+        That means both screen could \"send\", but just the one with registered callback will acutally create the appropirated NDEFmessage.
+        <h4>Advantages</h4>
+        <ul>
+            <li>- Both devices can register a callback and send data after touch confirmation.</li>
+        </ul>
+        <h4>Disadvantages</h4>
+        <ul>
+            <li>- Android Beam does not support bi-directional data processing. In order to exchange data the devices have to connect via NFC twice.</li>
+        </ul>
+
+        <hr>
+
+        <h1>Card Emulation Mode</h1>
+        This is using plain NFC in which one device acts as smartCard (Sending) and reader (Receiver).
+        <h4>How sending works:</h4>
+        Both devices act as reader and smartcard at the same time. To enable sending with an device it disables it\'s reader mode on \"Send\" press.
+        As a conclusion this device does not induct energy to recognized smardcards/nfc tags anymore and the other paired device can start reading. Otherwise, if both devices try to read at the same time,
+        collision of signals avoids any communication.
+        <h4>Advantages</h4>
+        <ul>
+            <li>- Bi-directional data transmission.</li>
+            <li>- No confirmation screen</li>
+        </ul>
+        <h4>Disadvantages</h4>
+        <ul>
+            <li>- More coding required, no plain interface.</li>
+        </ul>
+        ]]></string>
 </resources>
