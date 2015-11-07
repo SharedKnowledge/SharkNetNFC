@@ -16,11 +16,9 @@ import static android.nfc.NdefRecord.createMime;
 import static android.nfc.NfcAdapter.ACTION_NDEF_DISCOVERED;
 import static android.nfc.NfcAdapter.CreateNdefMessageCallback;
 import static android.nfc.NfcAdapter.EXTRA_NDEF_MESSAGES;
-import static android.nfc.NfcAdapter.getDefaultAdapter;
 
 public class AndroidBeamHelper {
 
-    static NfcAdapter mNfcAdapter;
     static TextView input;
 
     static final String INTENT_FILTER_DATA_MIME_TYPE = "application/net.mnio.sharknetnfc";
@@ -36,16 +34,12 @@ public class AndroidBeamHelper {
         }
     };
 
-    public static boolean register(Activity activity, TextView input) {
+    public static void registerCreateNdefCallback(Activity activity, TextView input, NfcAdapter nfcAdapter) {
         AndroidBeamHelper.input = input;
-        mNfcAdapter = getDefaultAdapter(activity);
-        if (mNfcAdapter == null) return false;
-
-        mNfcAdapter.setNdefPushMessageCallback(MESSAGE_CALLBACK, activity);
-        return true;
+        nfcAdapter.setNdefPushMessageCallback(MESSAGE_CALLBACK, activity);
     }
 
-    public static void readData(Intent intent, TextView output) {
+    public static void tryToReadDataOnIntent(Intent intent, TextView output) {
         if (intent == null || !ACTION_NDEF_DISCOVERED.equals(intent.getAction())) return;
 
         Parcelable[] rawMsgs = intent.getParcelableArrayExtra(EXTRA_NDEF_MESSAGES);

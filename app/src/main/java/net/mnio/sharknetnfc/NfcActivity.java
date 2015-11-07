@@ -1,6 +1,7 @@
 package net.mnio.sharknetnfc;
 
 import android.app.Activity;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,10 +21,11 @@ public abstract class NfcActivity extends Activity {
     private final View.OnClickListener sendOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            final boolean success = prepareSending(input);
-            if (!success) {
-                Toast.makeText(NfcActivity.this, "NFC not available", Toast.LENGTH_LONG).show();
-                finish();
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(NfcActivity.this);
+            if (nfcAdapter == null) {
+                Toast.makeText(NfcActivity.this, "Send preparation failed", Toast.LENGTH_LONG).show();
+            } else {
+                prepareSending(input, nfcAdapter);
             }
         }
     };
@@ -58,10 +60,15 @@ public abstract class NfcActivity extends Activity {
             sendButton.setOnClickListener(sendOnClickListener);
         }
 
-        receive(output);
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (nfcAdapter == null) {
+            Toast.makeText(NfcActivity.this, "Receive preparation failed", Toast.LENGTH_LONG).show();
+        } else {
+            prepareReceiving(output, nfcAdapter);
+        }
     }
 
-    abstract boolean prepareSending(EditText input);
+    abstract void prepareSending(EditText input, NfcAdapter nfcAdapter);
 
-    abstract void receive(TextView output);
+    abstract void prepareReceiving(TextView output, NfcAdapter nfcAdapter);
 }
