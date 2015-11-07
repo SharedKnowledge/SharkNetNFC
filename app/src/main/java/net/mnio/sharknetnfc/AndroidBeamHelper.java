@@ -23,13 +23,15 @@ public class AndroidBeamHelper {
     static NfcAdapter mNfcAdapter;
     static TextView input;
 
+    static final String INTENT_FILTER_DATA_MIME_TYPE = "application/net.mnio.sharknetnfc";
+
     static final CreateNdefMessageCallback MESSAGE_CALLBACK = new CreateNdefMessageCallback() {
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public NdefMessage createNdefMessage(NfcEvent event) {
             final byte[] bytes = getBytesFromInput();
-            NdefMessage msg = new NdefMessage(new NdefRecord[]{createMime("application/net.mnio.sharknetnfc", bytes)});
+            NdefMessage msg = new NdefMessage(new NdefRecord[]{createMime(INTENT_FILTER_DATA_MIME_TYPE, bytes)});
             return msg;
         }
     };

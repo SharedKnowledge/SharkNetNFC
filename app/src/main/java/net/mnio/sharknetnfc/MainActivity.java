@@ -17,7 +17,8 @@ public class MainActivity extends Activity {
                     cls = P2PActivity.class;
                     break;
                 case R.id.hceButton:
-                    return;
+                    cls = HceActivity.class;
+                    break;
             }
 
             final Intent intent = new Intent(getApplicationContext(), cls);

@@ -22,7 +22,8 @@
 
         <activity
             android:name=".P2PActivity"
-            android:label="@string/p2p_activity">
+            android:label="@string/p2p_activity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -32,10 +33,11 @@
 
         <activity
             android:name=".HceActivity"
-            android:label="@string/hce_activity"></activity>
+            android:label="@string/hce_activity"
+            android:windowSoftInputMode="stateHidden" />
 
         <service
-            android:name=".hce.NfcTagCardEmulationService"
+            android:name=".hce.HceCardEmulationService"
             android:exported="true"
             android:permission="android.permission.BIND_NFC_SERVICE">
             <intent-filter>

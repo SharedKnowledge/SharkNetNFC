@@ -17,9 +17,22 @@ public abstract class NfcActivity extends Activity {
         }
     };
 
-    protected EditText input;
-    protected TextView output;
+    private final View.OnClickListener sendOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final boolean success = prepareSending(input);
+            if (!success) {
+                Toast.makeText(NfcActivity.this, "NFC not available", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+    };
+
+    private EditText input;
+    private TextView output;
+
     private Button exitButton;
+    private Button sendButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +53,12 @@ public abstract class NfcActivity extends Activity {
             exitButton.setOnClickListener(exitOnClickListener);
         }
 
-        clearCursor();
-        final boolean register = register();
-        if (!register) {
-            Toast.makeText(this, "NFC not available", Toast.LENGTH_LONG).show();
-            finish();
+        if (sendButton == null) {
+            sendButton = (Button) findViewById(R.id.sendButton);
+            sendButton.setOnClickListener(sendOnClickListener);
         }
-        receive();
+
+        receive(output);
     }
 
     private void clearCursor() {
@@ -61,7 +73,7 @@ public abstract class NfcActivity extends Activity {
         });
     }
 
-    abstract boolean register();
+    abstract boolean prepareSending(EditText input);
 
-    abstract void receive();
+    abstract void receive(TextView output);
 }
