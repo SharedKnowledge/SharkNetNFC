@@ -39,5 +39,6 @@
         <h4>Disadvantages</h4>
         - More coding required, no plain interface.<br>
         - Both devices cannot act as readers at the same time, which means an collision avoidance needs to be implemented as well (E.g. slotted Aloha)<br>
+        - Unknown maximum APDU answer/payload. Some docs say it is about 256 byte, but no precise definition.
         ]]></string>
 </resources>

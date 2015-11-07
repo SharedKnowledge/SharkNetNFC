@@ -1,5 +1,6 @@
 package net.mnio.sharknetnfc.hce;
 
+import android.nfc.TagLostException;
 import android.nfc.tech.IsoDep;
 
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class IsoDepTransceiver implements Runnable {
                 onMessageReceived.onMessage(response);
             }
             isoDep.close();
+        } catch (TagLostException ignore) {
         } catch (IOException e) {
             onMessageReceived.onError(e);
         }

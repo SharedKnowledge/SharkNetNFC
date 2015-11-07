@@ -69,7 +69,7 @@ public class HceActivity extends NfcActivity {
 
             @Override
             public void onError(Exception exception) {
-                onMessage(exception.getMessage().getBytes());
+                onMessage(("Finished with error: " + exception.getMessage()).getBytes());
             }
         };
 

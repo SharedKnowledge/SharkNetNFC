@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.nfc.cardemulation.HostApduService;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import net.mnio.sharknetnfc.HceActivity;
 
@@ -14,10 +13,8 @@ public class HceCardEmulationService extends HostApduService {
     @Override
     public byte[] processCommandApdu(byte[] apdu, Bundle extras) {
         if (selectAidApdu(apdu)) {
-            Log.i("HCEDEMO", "Application selected");
             return getWelcomeMessage();
         } else {
-            Log.i("HCEDEMO", "Received: " + new String(apdu));
             return getNextMessage();
         }
     }
@@ -27,8 +24,13 @@ public class HceCardEmulationService extends HostApduService {
     }
 
     private byte[] getNextMessage() {
-        final String inputString = HceActivity.inputString + " - " + Math.random();
-        return ("Message from android: " + inputString).getBytes();
+        //TODO: implement ByteBuffer to be sent in pieces for long too messages
+        String inputString = HceActivity.inputString;
+        if (inputString != null) {
+            HceActivity.inputString = null;
+            return inputString.getBytes();
+        }
+        return null;
     }
 
     private boolean selectAidApdu(byte[] apdu) {
@@ -37,6 +39,5 @@ public class HceCardEmulationService extends HostApduService {
 
     @Override
     public void onDeactivated(int reason) {
-        Log.i("HCEDEMO", "Deactivated: " + reason);
     }
 }
