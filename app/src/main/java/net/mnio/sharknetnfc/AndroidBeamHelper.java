@@ -28,15 +28,8 @@ public class AndroidBeamHelper {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public NdefMessage createNdefMessage(NfcEvent event) {
-            String inputString = "Beam Time: " + System.currentTimeMillis();
-            if (input != null) {
-                String tmp = input.getText().toString().trim();
-                if (!TextUtils.isEmpty(tmp)) {
-                    inputString = tmp;
-                }
-            }
-
-            NdefMessage msg = new NdefMessage(new NdefRecord[]{createMime("application/net.mnio.sharknetnfc", inputString.getBytes())});
+            final byte[] bytes = getBytesFromInput();
+            NdefMessage msg = new NdefMessage(new NdefRecord[]{createMime("application/net.mnio.sharknetnfc", bytes)});
             return msg;
         }
     };
@@ -74,5 +67,16 @@ public class AndroidBeamHelper {
         }
 
         output.setText(builder);
+    }
+
+    private static byte[] getBytesFromInput() {
+        if (input != null) {
+            String tmp = input.getText().toString().trim();
+            if (!TextUtils.isEmpty(tmp)) {
+                return tmp.getBytes();
+            }
+        }
+
+        return ("Beam Time: " + System.currentTimeMillis()).getBytes();
     }
 }

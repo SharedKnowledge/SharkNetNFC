@@ -4,42 +4,16 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/modeButton"
+        android:id="@+id/p2pButton"
         android:layout_width="match_parent"
+        android:text="@string/button_start_p2p"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <Button
+        android:id="@+id/hceButton"
+        android:layout_below="@id/p2pButton"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/modeButton"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Send:" />
-
-        <EditText
-            android:id="@+id/inputTextView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:padding="5dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Received:" />
-
-        <TextView
-            android:id="@+id/outputTextView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:padding="5dp" />
-    </LinearLayout>
-
+        android:text="@string/button_start_hce"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
