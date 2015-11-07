@@ -61,18 +61,6 @@ public abstract class NfcActivity extends Activity {
         receive(output);
     }
 
-    private void clearCursor() {
-        input.clearFocus();
-        input.setCursorVisible(false);
-        input.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((EditText) v).setCursorVisible(true);
-                v.setOnClickListener(null);
-            }
-        });
-    }
-
     abstract boolean prepareSending(EditText input);
 
     abstract void receive(TextView output);
