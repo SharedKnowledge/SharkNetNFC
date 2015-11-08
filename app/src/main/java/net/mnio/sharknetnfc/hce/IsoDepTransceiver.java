@@ -4,6 +4,7 @@ import android.nfc.TagLostException;
 import android.nfc.tech.IsoDep;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class IsoDepTransceiver implements Runnable {
 
@@ -33,13 +34,19 @@ public class IsoDepTransceiver implements Runnable {
     public void run() {
         try {
             isoDep.connect();
-            byte[] response = isoDep.transceive(createSelectAidApdu(AID_ANDROID));
+            final byte[] selectAidApdu = createSelectAidApdu(AID_ANDROID);
+            byte[] response = isoDep.transceive(selectAidApdu);
+            if (!Arrays.equals(response, SmartCardEmulationService.WELCOME_MESSAGE)) {
+                return;
+            }
+
             while (isoDep.isConnected() && !Thread.interrupted()) {
                 final int maxTransceiveLength = isoDep.getMaxTransceiveLength();
                 final byte[] bytes = (ISO_DEP_MAX_LENGTH + maxTransceiveLength).getBytes();
                 response = isoDep.transceive(bytes);
                 onMessageReceived.onMessage(response);
             }
+
             isoDep.close();
         } catch (TagLostException ignore) {
         } catch (IOException e) {

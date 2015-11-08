@@ -11,7 +11,8 @@ import java.util.Arrays;
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class SmartCardEmulationService extends HostApduService {
 
-    public final static int DEFAULT_MAX_LENGTH = 200;
+    public static final int DEFAULT_MAX_LENGTH = 200;
+    public static final byte[] WELCOME_MESSAGE = "Hello".getBytes();
 
     private static EditText input;
     byte[] byteBuffer;
@@ -19,7 +20,7 @@ public class SmartCardEmulationService extends HostApduService {
     @Override
     public byte[] processCommandApdu(byte[] apdu, Bundle extras) {
         if (selectAidApdu(apdu)) {
-            return getWelcomeMessage();
+            return WELCOME_MESSAGE;
         }
 
         int maxLength = getMaxLength(apdu);
@@ -38,10 +39,6 @@ public class SmartCardEmulationService extends HostApduService {
 
     @Override
     public void onDeactivated(int reason) {
-    }
-
-    private byte[] getWelcomeMessage() {
-        return "Hello".getBytes();
     }
 
     byte[] getNextMessage(int maxLength) {
