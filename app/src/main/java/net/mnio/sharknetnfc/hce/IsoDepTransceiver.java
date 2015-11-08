@@ -8,6 +8,7 @@ import java.io.IOException;
 public class IsoDepTransceiver implements Runnable {
 
     public static final String ISO_DEP_MAX_LENGTH = "Iso-Dep-Max-Length: ";
+
     private IsoDep isoDep;
     private OnMessageReceived onMessageReceived;
 
@@ -36,7 +37,6 @@ public class IsoDepTransceiver implements Runnable {
             while (isoDep.isConnected() && !Thread.interrupted()) {
                 final int maxTransceiveLength = isoDep.getMaxTransceiveLength();
                 final byte[] bytes = (ISO_DEP_MAX_LENGTH + maxTransceiveLength).getBytes();
-                System.out.println();
                 response = isoDep.transceive(bytes);
                 onMessageReceived.onMessage(response);
             }

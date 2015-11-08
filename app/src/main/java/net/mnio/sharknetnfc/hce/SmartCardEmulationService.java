@@ -20,15 +20,20 @@ public class SmartCardEmulationService extends HostApduService {
     public byte[] processCommandApdu(byte[] apdu, Bundle extras) {
         if (selectAidApdu(apdu)) {
             return getWelcomeMessage();
-        } else {
-            final String payload = new String(apdu);
-            int maxLength = DEFAULT_MAX_LENGTH;
-            if (payload.startsWith(IsoDepTransceiver.ISO_DEP_MAX_LENGTH)) {
-                final String substring = payload.substring(IsoDepTransceiver.ISO_DEP_MAX_LENGTH.length(), payload.length());
-                maxLength = new Integer(substring);
-            }
-            return getNextMessage(maxLength);
         }
+
+        int maxLength = getMaxLength(apdu);
+        return getNextMessage(maxLength);
+    }
+
+    private int getMaxLength(byte[] apdu) {
+        final String payload = new String(apdu);
+        if (payload.startsWith(IsoDepTransceiver.ISO_DEP_MAX_LENGTH)) {
+            final String substring = payload.substring(IsoDepTransceiver.ISO_DEP_MAX_LENGTH.length(), payload.length());
+            return new Integer(substring);
+        }
+
+        return DEFAULT_MAX_LENGTH;
     }
 
     @Override

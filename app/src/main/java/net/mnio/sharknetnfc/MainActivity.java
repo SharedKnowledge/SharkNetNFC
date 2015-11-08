@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.hceButton).setOnClickListener(onClickListener);
         findViewById(R.id.p2pButton).setOnClickListener(onClickListener);
+
         final Spanned text = Html.fromHtml(getString(R.string.welcome));
         ((TextView) findViewById(R.id.welcomeText)).setText(text);
     }
