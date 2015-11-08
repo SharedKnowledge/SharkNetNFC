@@ -8,7 +8,7 @@ import android.os.Bundle;
 import net.mnio.sharknetnfc.HceActivity;
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
-public class HceCardEmulationService extends HostApduService {
+public class SmartCardEmulationService extends HostApduService {
 
     @Override
     public byte[] processCommandApdu(byte[] apdu, Bundle extras) {
@@ -24,7 +24,7 @@ public class HceCardEmulationService extends HostApduService {
     }
 
     private byte[] getNextMessage() {
-        //TODO: implement ByteBuffer to be sent in pieces for long too messages
+        //TODO: implement ByteBuffer to be sent in pieces for too long messages
         String inputString = HceActivity.inputString;
         if (inputString != null) {
             HceActivity.inputString = null;
