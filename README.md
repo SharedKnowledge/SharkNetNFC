@@ -2,7 +2,7 @@
 
 ## Example app for NFC on Android.
 
-Documentation is displayed on App start as well.
+Documentation is displayed on App start as well. Install directly from APK [here](apks/)
 
 Implemented:
 
@@ -24,11 +24,11 @@ That means both devices could "send", but just the ones with registered callback
 
 
 ## HCE
-Docs:
-https://developer.android.com/guide/topics/connectivity/nfc/advanced-nfc.html and 
+Docs:<br>
+https://developer.android.com/guide/topics/connectivity/nfc/advanced-nfc.html and <br>
 https://developer.android.com/guide/topics/connectivity/nfc/hce.html
 
-Based on this solution: 
+Based on this solution:<br>
 https://github.com/grundid/host-card-emulation-sample/tree/master/src/de/grundid/hcedemo
 
 This is using plain NFC in which one device acts as smartCard and NFC reader.
