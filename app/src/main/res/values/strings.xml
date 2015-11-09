@@ -13,10 +13,10 @@
     <string name="welcome"><![CDATA[
         <h1>Beam Mode</h1>
         This is using android Beam, which implements NFC as a P2P solution.
-        <h4>How sending works: </h4>
-        Press \"Send\" to register a callback on NFC detection. On this event the input field is been read and the text wrapped into a NDEFMessage.
+        <h4>How sending works:</h4>
+        Press \"Send\" to register a callback on NFC detection. On this event the input field is been read and the text is wrapped into a NDEFMessage.
         On NFC detection both devices will offer a touch screen confirmation, in which the touched one triggers the \"send\" callback.
-        That means both screen could \"send\", but just the one with registered callback will actually create the appropriated NDEFMessage.
+        That means both devices could \"send\", but just the ones with registered callback will actually create and send the appropriated NDEFMessage.
         <h4>Advantages</h4>
         - Both devices can register a callback and send data after touch confirmation without collision.<br>
         <h4>Disadvantages</h4>
@@ -27,18 +27,17 @@
         <br/>
 
         <h1>Card Emulation Mode</h1>
-        This is using plain NFC in which one device acts as smartCard (Sending) and reader (Receiver).
+        This is using plain NFC in which one device acts as smartCard and NFC reader.
         <h4>How sending works:</h4>
-        Both devices act as reader and smartcard at the same time. To enable sending with an device it disables it\'s reader mode on \"Send\" press.
-        As a conclusion this device does not induct energy to recognized smardcards/nfc tags anymore and the other paired device can start reading. Otherwise, if both devices try to read at the same time,
-        collision of signals avoids any communication.
+        Both devices act as reader and smartcard at the same time. To enable sending with an device it disables its reader mode on \"Send\" press.
+        As a conclusion this device does not induct energy to recognized smardcards / nfc tags anymore and the other paired device can start reading.
+        Otherwise, if both devices try to read at the same time, collision of signals avoids any communication.
         <h4>Advantages</h4>
         - Bi-directional data transmission.<br>
-        - No confirmation screen<br>
-        - Can interact with any NFC-A tag (not just Android Beam)<br>
+        - No confirmation screen.<br>
+        - Can interact with any NFC-A tag - not just Android Beam.<br>
         <h4>Disadvantages</h4>
         - More coding required, no plain interface.<br>
-        - Both devices cannot act as readers at the same time, which means an collision avoidance needs to be implemented as well (E.g. slotted Aloha)<br>
-        - Unknown maximum APDU answer/payload. Some docs say it is about 256 byte, but no precise definition.
+        - Both devices cannot act as readers at the same time, which means an collision avoidance needs to be implemented as well. E.g. Multiplex with TDMA.<br>
         ]]></string>
 </resources>
