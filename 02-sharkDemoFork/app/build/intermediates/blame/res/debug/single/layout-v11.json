@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/mario/Work/SharkNetNFC/02-sharkDemoFork/app/build/intermediates/res/merged/debug/layout-v11/abc_screen_content_include.xml",
+        "source": "/Users/mario/Work/SharkNetNFC/02-sharkDemoFork/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout-v11/abc_screen_content_include.xml"
+    },
+    {
+        "merged": "/Users/mario/Work/SharkNFCDemo/app/build/intermediates/res/merged/debug/layout-v11/abc_screen_content_include.xml",
+        "source": "/Users/mario/Work/SharkNFCDemo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout-v11/abc_screen_content_include.xml"
+    }
+]

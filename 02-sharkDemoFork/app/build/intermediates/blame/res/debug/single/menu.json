@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/mario/Work/SharkNetNFC/02-sharkDemoFork/app/build/intermediates/res/merged/debug/menu/menu_main_activity2.xml",
+        "source": "/Users/mario/Work/SharkNetNFC/02-sharkDemoFork/app/src/main/res/menu/menu_main_activity2.xml"
+    },
+    {
+        "merged": "/Users/mario/Work/SharkNFCDemo/app/build/intermediates/res/merged/debug/menu/menu_main_activity2.xml",
+        "source": "/Users/mario/Work/SharkNFCDemo/app/src/main/res/menu/menu_main_activity2.xml"
+    },
+    {
+        "merged": "/Users/mario/Work/SharkNFCDemo/app/build/intermediates/res/merged/debug/menu/menu_character_chooser.xml",
+        "source": "/Users/mario/Work/SharkNFCDemo/app/src/main/res/menu/menu_character_chooser.xml"
+    },
+    {
+        "merged": "/Users/mario/Work/SharkNetNFC/02-sharkDemoFork/app/build/intermediates/res/merged/debug/menu/menu_character_chooser.xml",
+        "source": "/Users/mario/Work/SharkNetNFC/02-sharkDemoFork/app/src/main/res/menu/menu_character_chooser.xml"
+    }
+]
