@@ -2,6 +2,8 @@
     <string name="app_name">Shark NFC</string>
     <string name="p2p_activity">Shark NFC: Beam mode</string>
     <string name="hce_activity">Shark NFC: Card mode</string>
+    <string name="info_p2p">P2P\nAndroid Beam</string>
+    <string name="info_hce">HCE\nCard Emulation</string>
     <string name="button_start_p2p">Start Beam</string>
     <string name="button_start_hce">Start Card Emulation</string>
     <string name="button_exit">exit</string>

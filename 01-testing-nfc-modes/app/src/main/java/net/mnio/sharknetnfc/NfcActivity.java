@@ -35,6 +35,7 @@ public abstract class NfcActivity extends Activity {
 
     private Button exitButton;
     private Button sendButton;
+    private TextView modeView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,9 @@ public abstract class NfcActivity extends Activity {
             sendButton = (Button) findViewById(R.id.sendButton);
             sendButton.setOnClickListener(sendOnClickListener);
         }
+
+        modeView = (TextView) findViewById(R.id.modeTextView);
+        modeView.setText(getIntent().getIntExtra(MainActivity.INTENT_EXTRA_ACTIVITY_MODE_NAME, -1));
 
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null) {

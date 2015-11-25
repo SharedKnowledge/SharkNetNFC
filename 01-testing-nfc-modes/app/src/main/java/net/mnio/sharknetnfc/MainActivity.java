@@ -11,20 +11,28 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+    public static String INTENT_EXTRA_ACTIVITY_MODE_NAME = "INTENT_EXTRA_ACTIVITY_MODE_NAME";
+
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Class<? extends NfcActivity> cls = null;
+            int modeNameStringId;
             switch (v.getId()) {
                 case R.id.p2pButton:
                     cls = P2PActivity.class;
+                    modeNameStringId = R.string.info_p2p;
                     break;
                 case R.id.hceButton:
                     cls = HceActivity.class;
+                    modeNameStringId = R.string.info_hce;
                     break;
+                default:
+                    return;
             }
 
             final Intent intent = new Intent(getApplicationContext(), cls);
+            intent.putExtra(INTENT_EXTRA_ACTIVITY_MODE_NAME, modeNameStringId);
             startActivity(intent);
         }
     };

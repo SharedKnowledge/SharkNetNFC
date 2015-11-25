@@ -19,6 +19,13 @@
             android:text="@string/button_exit"
             android:textColor="@android:color/holo_red_dark" />
 
+        <TextView
+            android:id="@+id/modeTextView"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/sendButton"
             android:layout_width="0dp"
