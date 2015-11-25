@@ -1,6 +1,7 @@
 package net.mnio.sharknetnfc;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,10 @@ public abstract class NfcActivity extends Activity {
             if (nfcAdapter == null) {
                 Toast.makeText(NfcActivity.this, "Send preparation failed", Toast.LENGTH_LONG).show();
             } else {
+                view.setEnabled(false);
+                Button button = (Button) view;
+                button.setTextColor(Color.DKGRAY);
+                button.setText(button.getText() + "...");
                 prepareSending(input, nfcAdapter);
             }
         }
