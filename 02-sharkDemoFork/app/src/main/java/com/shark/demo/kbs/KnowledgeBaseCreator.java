@@ -10,6 +10,7 @@ import net.sharkfw.knowledgeBase.sync.SyncKB;
 import net.sharkfw.system.L;
 
 import java.util.UUID;
+
 /**
  * Created by simon on 18.03.15.
  * This is a helper class that creates KnowledgeBases with random data.
@@ -28,7 +29,8 @@ public class KnowledgeBaseCreator {
                 return prepareKb(_bob);
             case "Clara":
                 return prepareKb(_clara);
-            default: throw new IllegalArgumentException("Alice, Clara or Bob have to be the ID.");
+            default:
+                throw new IllegalArgumentException("Alice, Clara or Bob have to be the ID.");
         }
     }
 

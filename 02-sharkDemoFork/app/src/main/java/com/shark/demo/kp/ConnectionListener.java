@@ -1,6 +1,5 @@
 package com.shark.demo.kp;
 
-import net.sharkfw.knowledgeBase.PeerSemanticTag;
 import net.sharkfw.peer.KEPConnection;
 
 /**
@@ -8,6 +7,6 @@ import net.sharkfw.peer.KEPConnection;
  */
 public interface ConnectionListener {
 
-    public void onConnectionEstablished(KEPConnection connection);
+    void onConnectionEstablished(KEPConnection connection);
 
 }

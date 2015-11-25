@@ -28,27 +28,6 @@ import net.sharkfw.system.SharkException;
 import java.io.IOException;
 
 
-/*
- *       [ ]                    This is Fred. Fred is a prototype. If you want to use Fred,
- *      (   )                   you should really build him anew. He may work right now,
- *       |>|                    but he has three problems:
- *    __/===\__                     1. You don't know how he works.
- *   //| o=o |\\                    2. He does not work as well as you might think he does.
- * <]  | o=o |  [>                  3. He is a prototype!!!
- *     \=====/                  So, if you are lucky enough to be the one building something
- *    / / | \ \                 that extends what he does, get him away from that cliff!
- *   <_________>
- * ------------------           If you run into problems while working with Fred, contact
- *                  /           one of its original makers:
- *                 /            Veit Heller (veit@veitheller.de, @hellerve)
- *                /             Simon Arnold (?, @simonArnold)
- *               /              ?
- *              /               ?
- *             /
- *            /                 Thanks for caring about Fred.
- */
-
-
 /**
  * The main activity class. Oddly enough, it is not the first activity to be called.
  * You will have to choose a character before being redirected here.
@@ -56,13 +35,12 @@ import java.io.IOException;
  */
 public class MainActivity extends ActionBarActivity implements View.OnClickListener, ConnectionListener {
 
-
     private TextView _text;
     private Button _reload;
     private Button _refresh;
     private Intent intent;
     private SharkEngine _engine;
-    public static Handler _handler ;
+    public static Handler _handler;
     private WifiListenerKp _wifiKp;
 
     KbTextViewWriter _kbTextViewWriter; // This is also a knowledge base listener that prints changes to the text view
@@ -113,12 +91,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         try {
             _kb = new KnowledgeBaseCreator().getKb(name);
-            _kp = new SyncKP(_engine,_kb,1000);
+            _kp = new SyncKP(_engine, _kb, 1000);
 
-        } catch(net.sharkfw.system.SharkException e) {
+        } catch (net.sharkfw.system.SharkException e) {
             Log.d("Internal", "Setting up the SyncKB failed.");
         }
-        _wifiKp = new WifiListenerKp(_engine,_kb.getOwner());
+        _wifiKp = new WifiListenerKp(_engine, _kb.getOwner());
         _wifiKp.setConnectionListener(this);
 
 
@@ -136,13 +114,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
      */
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.reload){
+        if (v.getId() == R.id.reload) {
            /* Intent reloadIntent = new Intent(this, MainActivity.class);
             reloadIntent.putExtra(HEADER_NAME, intent.getStringExtra(CharacterChooser.NAME));*/
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        }
-        else if(v.getId() == R.id.refresh){
+        } else if (v.getId() == R.id.refresh) {
 
         }
     }
@@ -168,7 +145,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if(id == R.id.show_log) {
+        if (id == R.id.show_log) {
             _kbTextViewWriter.showLogText();
             return true;
         }
@@ -207,6 +184,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     /**
      * This handler reacts to an established connection.
+     *
      * @param connection
      */
     @Override
@@ -240,7 +218,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
      * @param text
      */
     public static synchronized void log(String text) {
-       final String logText = text;
+        final String logText = text;
         _handler.post(new Runnable() {
             public void run() {
                 KbTextViewWriter.getInstance().appendToLogText(logText);

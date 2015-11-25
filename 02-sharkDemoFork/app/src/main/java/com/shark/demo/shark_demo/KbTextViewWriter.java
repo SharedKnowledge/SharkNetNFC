@@ -15,7 +15,7 @@ import net.sharkfw.system.L;
 
 /**
  * Created by simon on 22.03.15.
- *
+ * <p/>
  * Helps writing output to the text view. This class keeps two strings, on for the knowledge
  * base output, one for the log output. It offers methods to append to or set either of these
  * strings and switch between showing one of those strings in the textview.
@@ -40,6 +40,7 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
 
     /**
      * Append to the kb text string. this is not automatically shown.
+     *
      * @param append
      */
     public void appendToKbText(String append) {
@@ -49,6 +50,7 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
 
     /**
      * Set the kb text string. this is not automatically shown.
+     *
      * @param textToSet
      */
     public void setKbText(String textToSet) {
@@ -58,6 +60,7 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
 
     /**
      * Append to the log text string. this is not automatically shown.
+     *
      * @param append
      */
     public void appendToLogText(String append) {
@@ -67,6 +70,7 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
 
     /**
      * Set the log text string. this is not automatically shown.
+     *
      * @param textToSet
      */
     public void setLogText(String textToSet) {
@@ -113,7 +117,8 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
             appendToLogText("Semantic Tag added: " + L.semanticTag2String(semanticTag));
         } catch (SharkKBException e) {
             L.d("Internal", "Error while writing Tag to text view: " + e.toString());
-        }    }
+        }
+    }
 
     @Override
     public void peerAdded(PeerSemanticTag peerSemanticTag) {
@@ -121,7 +126,8 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
             appendToLogText("Peer Semantic Tag added: " + L.semanticTag2String(peerSemanticTag));
         } catch (SharkKBException e) {
             L.d("Internal", "Error while writing Tag to text view: " + e.toString());
-        }    }
+        }
+    }
 
     @Override
     public void locationAdded(SpatialSemanticTag spatialSemanticTag) {
@@ -129,7 +135,8 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
             appendToLogText("Spatial Semantic Tag added: " + L.semanticTag2String(spatialSemanticTag));
         } catch (SharkKBException e) {
             L.d("Internal", "Error while writing Tag to text view: " + e.toString());
-        }    }
+        }
+    }
 
     @Override
     public void timespanAdded(TimeSemanticTag timeSemanticTag) {
@@ -137,7 +144,8 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
             appendToLogText("Time Semantic Tag added: " + L.semanticTag2String(timeSemanticTag));
         } catch (SharkKBException e) {
             L.d("Internal", "Error while writing Tag to text view: " + e.toString());
-        }    }
+        }
+    }
 
     @Override
     public void topicRemoved(SemanticTag semanticTag) {
@@ -145,7 +153,8 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
             appendToLogText("Semantic Tag removed: " + L.semanticTag2String(semanticTag));
         } catch (SharkKBException e) {
             L.d("Internal", "Error while writing Tag to text view: " + e.toString());
-        }    }
+        }
+    }
 
     @Override
     public void peerRemoved(PeerSemanticTag peerSemanticTag) {
