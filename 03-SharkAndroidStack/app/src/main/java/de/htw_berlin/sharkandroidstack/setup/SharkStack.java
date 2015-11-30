@@ -37,4 +37,8 @@ public class SharkStack {
         _kb.addListener(_kbTextViewWriter);
         //_kbTextViewWriter.writeKbToTextView(_kb);
     }
+
+    public void stop() {
+        _engine.stop();
+    }
 }
