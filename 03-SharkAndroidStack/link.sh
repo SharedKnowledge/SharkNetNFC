@@ -11,9 +11,10 @@ rm -rf $ROOT/net/sharkfw
 mkdir -p $ROOT/net/sharkfw/peer
 ln -s $SOURCE/android/net/sharkfw/peer/*.java                                   $ROOT/net/sharkfw/peer/
 
-mkdir -p $ROOT/net/sharkfw/protocols/{wifidirect,nfc}
+mkdir -p $ROOT/net/sharkfw/protocols/{wifidirect,nfc,bluetooth}
 ln -s $SOURCE/android/net/sharkfw/protocols/wifidirect/*.java                   $ROOT/net/sharkfw/protocols/wifidirect/
-#ln -s $SOURCE/android/net/sharkfw/protocols/nfc/*.java                         $ROOT/net/sharkfw/protocols/nfc/
+#ln -s $SOURCE/android/net/sharkfw/protocols/nfc/*.java                          $ROOT/net/sharkfw/protocols/nfc/
+#ln -s $SOURCE/android/net/sharkfw/protocols/bluetooth/*.java                    $ROOT/net/sharkfw/protocols/bluetooth/
 
 #core
 mkdir -p $ROOT/net/sharkfw/kep/format
