@@ -12,6 +12,8 @@ import net.sharkfw.peer.SharkEngine;
 import net.sharkfw.system.L;
 import net.sharkfw.system.SharkException;
 
+import de.htw_berlin.sharkandroidstack.android.KbTextViewWriter;
+
 /**
  * An example KP which will send an interest to the connecting device
  *
@@ -20,6 +22,7 @@ import net.sharkfw.system.SharkException;
 public class MySimpleKp extends KnowledgePort {
     private SharkCS myInterest;
     private SyncKP _kp;
+    private KbTextViewWriter kbTextViewWriter;
 
     /**
      * @param se  the shark engine
@@ -37,30 +40,30 @@ public class MySimpleKp extends KnowledgePort {
 
     @Override
     protected void doInsert(Knowledge knowledge, KEPConnection kepConnection) {
-        L.d("knowledge received: (" + L.knowledge2String(knowledge) + ")");
+        log("knowledge received: (" + L.knowledge2String(knowledge) + ")");
     }
 
     @Override
     protected void doExpose(SharkCS interest, KEPConnection kepConnection) {
-        L.d("interest received " + L.contextSpace2String(interest));
+        log("interest received " + L.contextSpace2String(interest));
 
         if (isAnyInterest(interest)) {
-            L.d("any interest received " + L.contextSpace2String(interest));
+            log("any interest received " + L.contextSpace2String(interest));
             try {
-                L.d("trying to send interest\n" + L.contextSpace2String(myInterest));
+                log("trying to send interest\n" + L.contextSpace2String(myInterest));
                 kepConnection.expose(myInterest);
             } catch (SharkException ex) {
-                L.d("problems:" + ex.getMessage());
+                log("problems:" + ex.getMessage());
             }
         }
         //TODO: if else?
         if (isPeerInterest(interest)) {
-            L.d("Peer interest received " + L.contextSpace2String(interest));
-            L.d("Trying to send sync interest " + L.contextSpace2String(_kp.getInterest()));
+            log("Peer interest received " + L.contextSpace2String(interest));
+            log("Trying to send sync interest " + L.contextSpace2String(_kp.getInterest()));
             try {
                 kepConnection.expose(_kp.getInterest());
             } catch (SharkException ex) {
-                L.d("problems:" + ex.getMessage());
+                log("problems:" + ex.getMessage());
             }
         }
     }
@@ -78,6 +81,18 @@ public class MySimpleKp extends KnowledgePort {
                 theInterest.isAny(SharkCS.DIM_LOCATION) && theInterest.isAny(SharkCS.DIM_DIRECTION) &&
                 theInterest.isAny(SharkCS.DIM_PEER) && theInterest.isAny(SharkCS.DIM_REMOTEPEER) &&
                 theInterest.isAny(SharkCS.DIM_TIME));
+    }
+
+    public void setTextViewWriter(KbTextViewWriter kbTextViewWriter) {
+        this.kbTextViewWriter = kbTextViewWriter;
+    }
+
+    public void log(String msg) {
+        if (kbTextViewWriter == null) {
+            return;
+        }
+
+        kbTextViewWriter.appendToLogText(msg);
     }
 }
 

@@ -12,10 +12,10 @@ import de.htw_berlin.sharkandroidstack.sharkFW.peer.AndroidSharkEngine;
 public class SharkStack {
 
     private AndroidSharkEngine _engine;
-    private KbTextViewWriter _kbTextViewWriter;
     private SyncKB _kb;
     private SyncKP _kp;
-    private MySimpleKp _wifiKp;
+    private MySimpleKp _myKP;
+    private KbTextViewWriter _kbTextViewWriter;
 
     public SharkStack(Context context, String name) {
         _engine = new AndroidSharkEngine(context);
@@ -28,15 +28,38 @@ public class SharkStack {
             Log.d("Internal", "Setting up the SyncKB failed.");
         }
 
-        _wifiKp = new MySimpleKp(_engine, _kb.getOwner(), _kp);
+        _myKP = new MySimpleKp(_engine, _kb.getOwner(), _kp);
+    }
 
-        _kbTextViewWriter = KbTextViewWriter.getInstance();
-        //_kbTextViewWriter.setOutputTextView(_text);
-        _kb.addListener(_kbTextViewWriter);
-        //_kbTextViewWriter.writeKbToTextView(_kb);
+    public SharkStack setTextViewWriter(KbTextViewWriter kbTextViewWriter) {
+        _kbTextViewWriter = kbTextViewWriter;
+        _kb.addListener(kbTextViewWriter);
+
+        _myKP.setTextViewWriter(kbTextViewWriter);
+
+        kbTextViewWriter.writeKbToTextView(_kb);
+        return this;
+    }
+
+    public SharkStack start() {
+        try {
+            _engine.startWifiDirect(); //TODO: start your own stub here
+            _kbTextViewWriter.appendToLogText("Engine started");
+        } catch (Exception e) {
+            _kbTextViewWriter.appendToLogText("Engine did not start: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return this;
     }
 
     public void stop() {
+        try {
+            _engine.stopWifiDirect(); //TODO: stop your own stub here
+            _kbTextViewWriter.appendToLogText("Engine stopped");
+        } catch (Exception e) {
+            _kbTextViewWriter.appendToLogText("Engine error on stop: " + e.getMessage());
+            e.printStackTrace();
+        }
         _engine.stop();
     }
 }

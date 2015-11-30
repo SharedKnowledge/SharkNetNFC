@@ -30,12 +30,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Received:" />
+            android:text="Received/Log:" />
 
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:fillViewport="true"
             android:isScrollContainer="false"
             android:scrollbars="vertical">
@@ -74,13 +74,22 @@
             android:gravity="center" />
 
         <Button
-            android:id="@+id/sendButton"
+            android:id="@+id/toogleLog"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:drawable/dialog_holo_light_frame"
             android:drawableRight="@android:drawable/ic_menu_info_details"
             android:text="show log" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:drawableRight="@android:drawable/ic_menu_send"
+            android:text="send" />
     </LinearLayout>
 
 </LinearLayout>

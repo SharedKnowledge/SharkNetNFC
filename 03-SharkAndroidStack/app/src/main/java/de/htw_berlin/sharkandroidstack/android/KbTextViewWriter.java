@@ -22,13 +22,17 @@ import net.sharkfw.system.L;
  */
 public class KbTextViewWriter implements KnowledgeBaseListener {
 
-    protected static KbTextViewWriter instance;
-    protected TextView outputTextView;
-    protected String kbText, logText;
+    public static String NEW_LINE = "\n";
+
+    private static KbTextViewWriter instance;
+    private TextView outputTextView;
+    private StringBuffer kbText, logText;
+
+    private boolean isLog = false;
 
     private KbTextViewWriter() {
-        kbText = "";
-        logText = "";
+        kbText = new StringBuffer();
+        logText = new StringBuffer();
     }
 
     public static KbTextViewWriter getInstance() {
@@ -44,8 +48,8 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
      * @param append
      */
     public void appendToKbText(String append) {
-        kbText += append + "//";
-        showKbText();
+        kbText.append(append + NEW_LINE + NEW_LINE);
+        updateKbText();
     }
 
     /**
@@ -54,8 +58,8 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
      * @param textToSet
      */
     public void setKbText(String textToSet) {
-        kbText = textToSet + System.lineSeparator();
-        showKbText();
+        kbText = new StringBuffer(textToSet + NEW_LINE);
+        updateKbText();
     }
 
     /**
@@ -64,8 +68,8 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
      * @param append
      */
     public void appendToLogText(String append) {
-        logText += append + System.lineSeparator() + System.lineSeparator();
-        showLogText();
+        logText.append(append + NEW_LINE + NEW_LINE);
+        updateLogText();
     }
 
     /**
@@ -74,14 +78,18 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
      * @param textToSet
      */
     public void setLogText(String textToSet) {
-        logText = textToSet + System.lineSeparator();
-        showLogText();
+        logText = new StringBuffer(textToSet + NEW_LINE);
+//        showLogText();
     }
 
     /**
      * Show what is in the knowledge base string in the text view.
      */
     public void showKbText() {
+        isLog = false;
+        if (outputTextView == null) {
+            return;
+        }
         outputTextView.setText(kbText);
     }
 
@@ -89,7 +97,23 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
      * Show what is in the log string in the text view.
      */
     public void showLogText() {
+        isLog = true;
+        if (outputTextView == null) {
+            return;
+        }
         outputTextView.setText(logText);
+    }
+
+    public void updateKbText() {
+        if (!isLog) {
+            showKbText();
+        }
+    }
+
+    public void updateLogText() {
+        if (isLog) {
+            showLogText();
+        }
     }
 
     /**
@@ -103,12 +127,11 @@ public class KbTextViewWriter implements KnowledgeBaseListener {
         } catch (Exception e) {
             L.d("Internal", "Exception while writing kb to text view: " + e.toString());
         }
-        showKbText();
+        updateKbText();
     }
 
     public void setOutputTextView(TextView outputTextView) {
         this.outputTextView = outputTextView;
-        this.setLogText("Text view changed");
     }
 
     @Override
