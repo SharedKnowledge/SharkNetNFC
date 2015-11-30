@@ -55,6 +55,22 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
         _wifi.stop();
     }
 
+    public void startNfc() throws SharkProtocolNotSupportedException, IOException {
+        throw new SharkProtocolNotSupportedException("TODO: Mario");
+    }
+
+    public void stopNfc() throws SharkProtocolNotSupportedException {
+        throw new SharkProtocolNotSupportedException("TODO: Mario");
+    }
+
+    public void startBluetooth() throws SharkProtocolNotSupportedException, IOException {
+        throw new SharkProtocolNotSupportedException("TODO: Timm");
+    }
+
+    public void stopBluetooth() throws SharkProtocolNotSupportedException {
+        throw new SharkProtocolNotSupportedException("TODO: Timm");
+    }
+
     @Override
     public void sendKnowledge(Knowledge k, PeerSemanticTag recipient,
                               KnowledgePort kp) throws SharkSecurityException, SharkKBException,
