@@ -43,17 +43,12 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
         }
         //TODO: this (SharkEngine not used for WifiDirectStreamStub), kebStub should be set by setHandler()
         currentStub = new WifiDirectStreamStub(getContext(), this, kepStub);
-        try {
-            currentStub.start();
-        } catch (IOException e) {
-            e.printStackTrace(); //TODO: why is WifiDirectStreamStub.start() without IOException?
-        }
         return currentStub;
     }
 
     @Override
     public void startWifiDirect() throws SharkProtocolNotSupportedException, IOException {
-        this.createWifiDirectStreamStub(this.getKepStub());
+        this.createWifiDirectStreamStub(this.getKepStub()).start();
     }
 
     public void stopWifiDirect() throws SharkProtocolNotSupportedException {
@@ -67,13 +62,12 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
         }
         currentStub = new NfcStreamStub(getContext());
         currentStub.setHandler(kepStub);
-        currentStub.start();
         return currentStub;
     }
 
 
     public void startNfc() throws SharkProtocolNotSupportedException, IOException {
-        this.createNfcStreamStub(this.getKepStub());
+        this.createNfcStreamStub(this.getKepStub()).start();
     }
 
     public void stopNfc() throws SharkProtocolNotSupportedException {
