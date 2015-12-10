@@ -4,6 +4,7 @@ import android.content.Context;
 import android.nfc.NfcAdapter;
 
 import net.sharkfw.kep.SharkProtocolNotSupportedException;
+import net.sharkfw.protocols.MessageStub;
 import net.sharkfw.protocols.RequestHandler;
 import net.sharkfw.protocols.StreamConnection;
 import net.sharkfw.protocols.StreamStub;
@@ -12,7 +13,7 @@ import java.io.IOException;
 
 public class NfcStreamStub implements StreamStub {
 
-    private RequestHandler handler;
+    RequestHandler _handler;
 
     //TODO: implement receiver here
 
@@ -22,6 +23,23 @@ public class NfcStreamStub implements StreamStub {
             throw new SharkProtocolNotSupportedException("NFC is not supported");
         }
     }
+
+    private RequestHandler _internHandler = new RequestHandler() {
+        public void handleMessage(byte[] msg, MessageStub stub) {
+            NfcStreamStub.this._handler.handleMessage(msg, stub);
+        }
+
+        public void handleStream(StreamConnection con) {
+//            NfcStreamStub.this._connectionStr = "tcp://" + con.getReceiverAddressString() + ":"+PORT;
+            NfcStreamStub.this._handler.handleStream(con);
+        }
+
+        @Override
+        public void handleNewConnectionStream(StreamConnection con) {
+//            NfcStreamStub.this._connectionStr = "tcp://" + con.getReceiverAddressString() + ":"+PORT;
+            NfcStreamStub.this._handler.handleNewConnectionStream(con);
+        }
+    };
 
     @Override
     public StreamConnection createStreamConnection(String addressString) throws IOException {
@@ -35,7 +53,7 @@ public class NfcStreamStub implements StreamStub {
 
     @Override
     public void setHandler(RequestHandler handler) {
-        this.handler = handler;
+        this._handler = handler;
     }
 
     @Override
