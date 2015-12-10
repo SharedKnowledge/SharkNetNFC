@@ -29,12 +29,10 @@ public class MainActivity extends AppCompatActivity {
             if (!isShowingLogOutput) {
                 button.setText("show Log");
                 outputHeader.setText("KB");
-
                 kbTextViewWriter.showKbText();
             } else {
                 button.setText("show KB");
                 outputHeader.setText("Log:");
-
                 kbTextViewWriter.showLogText();
             }
         }
@@ -53,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        outputHeader = (TextView) findViewById(R.id.outputHeader);
+        if (outputHeader == null) {
+            outputHeader = (TextView) findViewById(R.id.outputHeader);
+        }
 
         if (sharkStack == null) {
             kbTextViewWriter = KbTextViewWriter.getInstance();
