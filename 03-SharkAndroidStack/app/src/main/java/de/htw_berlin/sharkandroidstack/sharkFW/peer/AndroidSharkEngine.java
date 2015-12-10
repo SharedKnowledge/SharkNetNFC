@@ -41,6 +41,7 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
         if (currentStub != null) {
             currentStub.stop();
         }
+        //TODO: this (SharkEngine not used for WifiDirectStreamStub), kebStub should be set by setHandler()
         currentStub = new WifiDirectStreamStub(getContext(), this, kepStub);
         try {
             currentStub.start();
@@ -64,7 +65,8 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
         if (currentStub != null) {
             currentStub.stop();
         }
-        currentStub = new NfcStreamStub(getContext(), this, kepStub);
+        currentStub = new NfcStreamStub(getContext());
+        currentStub.setHandler(kepStub);
         currentStub.start();
         return currentStub;
     }

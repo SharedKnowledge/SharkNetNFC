@@ -1,9 +1,9 @@
 package de.htw_berlin.sharkandroidstack.sharkFW.protocols.nfc;
 
 import android.content.Context;
+import android.nfc.NfcAdapter;
 
-import net.sharkfw.kep.KEPStub;
-import net.sharkfw.peer.SharkEngine;
+import net.sharkfw.kep.SharkProtocolNotSupportedException;
 import net.sharkfw.protocols.RequestHandler;
 import net.sharkfw.protocols.StreamConnection;
 import net.sharkfw.protocols.StreamStub;
@@ -11,8 +11,14 @@ import net.sharkfw.protocols.StreamStub;
 import java.io.IOException;
 
 public class NfcStreamStub implements StreamStub {
-    public NfcStreamStub(Context context, SharkEngine sharkEngine, KEPStub kepStub) {
 
+    private RequestHandler handler;
+
+    public NfcStreamStub(Context context) throws SharkProtocolNotSupportedException {
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
+        if (nfcAdapter == null) {
+            throw new SharkProtocolNotSupportedException("NFC is not supported");
+        }
     }
 
     @Override
@@ -27,7 +33,7 @@ public class NfcStreamStub implements StreamStub {
 
     @Override
     public void setHandler(RequestHandler handler) {
-
+        this.handler = handler;
     }
 
     @Override
@@ -37,7 +43,6 @@ public class NfcStreamStub implements StreamStub {
 
     @Override
     public void start() throws IOException {
-
     }
 
     @Override
