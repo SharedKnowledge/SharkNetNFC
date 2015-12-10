@@ -55,8 +55,8 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
         currentStub.stop();
     }
 
-    //    @Override
-    protected Stub createNfcStreamStub(KEPStub kepStub) throws SharkProtocolNotSupportedException, IOException {
+    @Override
+    protected Stub createNfcStreamStub(KEPStub kepStub) throws SharkProtocolNotSupportedException {
         if (currentStub != null) {
             currentStub.stop();
         }
@@ -65,33 +65,37 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
         return currentStub;
     }
 
-
+    @Override
     public void startNfc() throws SharkProtocolNotSupportedException, IOException {
         this.createNfcStreamStub(this.getKepStub()).start();
     }
 
+    @Override
     public void stopNfc() throws SharkProtocolNotSupportedException {
         currentStub.stop();
     }
 
+    @Override
+    protected Stub createBluetoothStreamStub(KEPStub kepStub) throws SharkProtocolNotSupportedException {
+        throw new SharkProtocolNotSupportedException("TODO: Timm");
+    }
+
+    @Override
     public void startBluetooth() throws SharkProtocolNotSupportedException, IOException {
         throw new SharkProtocolNotSupportedException("TODO: Timm");
     }
 
+    @Override
     public void stopBluetooth() throws SharkProtocolNotSupportedException {
         throw new SharkProtocolNotSupportedException("TODO: Timm");
     }
 
     @Override
-    public void sendKnowledge(Knowledge k, PeerSemanticTag recipient,
-                              KnowledgePort kp) throws SharkSecurityException, SharkKBException,
-            IOException {
-
+    public void sendKnowledge(Knowledge k, PeerSemanticTag recipient, KnowledgePort kp) throws SharkSecurityException, SharkKBException, IOException {
         if (currentStub != null && currentStub instanceof WifiDirectStreamStub) {
             WifiDirectStreamStub wifiStub = (WifiDirectStreamStub) currentStub;
             recipient.setAddresses(new String[]{wifiStub.getConnectionStr()});
         }
-
         super.sendKnowledge(k, recipient, kp);
     }
 }
