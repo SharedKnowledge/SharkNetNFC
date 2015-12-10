@@ -14,6 +14,8 @@ public class NfcStreamStub implements StreamStub {
 
     private RequestHandler handler;
 
+    //TODO: implement receiver here
+
     public NfcStreamStub(Context context) throws SharkProtocolNotSupportedException {
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
         if (nfcAdapter == null) {
