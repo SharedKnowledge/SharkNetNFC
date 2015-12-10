@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #path to SharkFW
 SOURCE=/Users/mario/Work/SharkFW/src/java
 

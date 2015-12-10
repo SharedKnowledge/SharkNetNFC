@@ -17,24 +17,26 @@ public class MainActivity extends AppCompatActivity {
     KbTextViewWriter kbTextViewWriter;
 
     TextView outputHeader;
-    boolean showLog = false;
+    boolean isShowingLogOutput = false;
     View.OnClickListener toggleClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View view) {
-            showLog = !showLog;
+            isShowingLogOutput = !isShowingLogOutput;
 
             Button button = (Button) view;
 
-            if (showLog) {
+            if (!isShowingLogOutput) {
                 button.setText("show Log");
+                outputHeader.setText("KB");
+
                 kbTextViewWriter.showKbText();
             } else {
                 button.setText("show KB");
+                outputHeader.setText("Log:");
+
                 kbTextViewWriter.showLogText();
             }
-
-            setOutputHeader();
         }
     };
 
@@ -53,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         outputHeader = (TextView) findViewById(R.id.outputHeader);
-        setOutputHeader();
 
         if (sharkStack == null) {
             kbTextViewWriter = KbTextViewWriter.getInstance();
@@ -61,13 +62,10 @@ public class MainActivity extends AppCompatActivity {
             sharkStack = new SharkStack(this, getDeviceId()).setTextViewWriter(kbTextViewWriter).start();
 
             kbTextViewWriter.setOutputTextView((TextView) findViewById(R.id.outputTextView));
-            findViewById(R.id.toogleLog).setOnClickListener(toggleClickListener);
+            View toggleLogView = findViewById(R.id.toogleLog);
+            toggleLogView.setOnClickListener(toggleClickListener);
+            toggleClickListener.onClick(toggleLogView);
         }
-    }
-
-    private void setOutputHeader() {
-        String headerText = showLog ? "Log" : "KB";
-        outputHeader.setText(headerText);
     }
 
     @Override
