@@ -4,9 +4,11 @@ SOURCE=/Users/mario/Work/SharkFW/src/java
 
 #Fixed to java sources, do not change
 ROOT=./app/src/main/java
+TEST=./app/src/androidTest/java
 
 #Cleanup previous links and files - be careful
 rm -rf $ROOT/net/sharkfw
+rm -rf $TEST/net/sharkfw
 
 #android
 mkdir -p $ROOT/net/sharkfw/peer
@@ -43,20 +45,23 @@ mkdir -p $ROOT/net/sharkfw/protocols/m2s
 ln -s $SOURCE/core/net/sharkfw/protocols/*.java                                 $ROOT/net/sharkfw/protocols/
 ln -s $SOURCE/core/net/sharkfw/protocols/m2s/*.java                             $ROOT/net/sharkfw/protocols/m2s/
 
-mkdir -p $ROOT/net/sharkfw/security/{key,utility}
+mkdir -p $ROOT/net/sharkfw/system
+ln -s $SOURCE/core/net/sharkfw/system/*.java                                    $ROOT/net/sharkfw/system/
+
+mkdir -p $ROOT/net/sharkfw/security/key/storage/filesystem
 mkdir -p $ROOT/net/sharkfw/security/pki/storage/filesystem
+mkdir -p $ROOT/net/sharkfw/security/utility/
 ln -s $SOURCE/core/net/sharkfw/security/key/*.java                              $ROOT/net/sharkfw/security/key/
+ln -s $SOURCE/core/net/sharkfw/security/key/storage/*.java                      $ROOT/net/sharkfw/security/key/storage/
+ln -s $SOURCE/core/net/sharkfw/security/key/storage/filesystem/*.java           $ROOT/net/sharkfw/security/key/storage/filesystem/
 ln -s $SOURCE/core/net/sharkfw/security/pki/*.java                              $ROOT/net/sharkfw/security/pki/
 ln -s $SOURCE/core/net/sharkfw/security/pki/storage/*.java                      $ROOT/net/sharkfw/security/pki/storage/
 ln -s $SOURCE/core/net/sharkfw/security/pki/storage/filesystem/*.java           $ROOT/net/sharkfw/security/pki/storage/filesystem/
 ln -s $SOURCE/core/net/sharkfw/security/utility/*.java                          $ROOT/net/sharkfw/security/utility/
 
-mkdir -p $ROOT/net/sharkfw/system
-ln -s $SOURCE/core/net/sharkfw/system/*.java                                    $ROOT/net/sharkfw/system/
-
 # #j2seMail
 mkdir -p $ROOT/net/sharkfw/protocols/mail
-ln -s $SOURCE/j2seMail/net/sharkfw/protocols/mail/*.java                      $ROOT/net/sharkfw/protocols/mail
+ln -s $SOURCE/j2seMail/net/sharkfw/protocols/mail/*.java                        $ROOT/net/sharkfw/protocols/mail
 
 
 #j2se_android
@@ -69,3 +74,14 @@ ln -s $SOURCE/j2se_android/net/sharkfw/peer/*.java                              
 mkdir -p $ROOT/net/sharkfw/protocols/{http,tcp}
 ln -s $SOURCE/j2se_android/net/sharkfw/protocols/http/*.java                    $ROOT/net/sharkfw/protocols/http/
 ln -s $SOURCE/j2se_android/net/sharkfw/protocols/tcp/*.java                     $ROOT/net/sharkfw/protocols/tcp/
+
+#js2seTests (depending on of #core: core/net/sharkfw/security/)
+mkdir -p $TEST/net/sharkfw/security/key/storage/filesystem
+mkdir -p $TEST/net/sharkfw/security/pki/storage/filesystem
+mkdir -p $TEST/net/sharkfw/security/utility
+ln -s $SOURCE/j2seTests/net/sharkfw/security/key/*.java                         $TEST/net/sharkfw/security/key/
+ln -s $SOURCE/j2seTests/net/sharkfw/security/key/storage/filesystem/*.java      $TEST/net/sharkfw/security/key/storage/filesystem/
+ln -s $SOURCE/j2seTests/net/sharkfw/security/pki/*.java                         $TEST/net/sharkfw/security/pki/
+ln -s $SOURCE/j2seTests/net/sharkfw/security/pki/storage/*.java                 $TEST/net/sharkfw/security/pki/storage/
+ln -s $SOURCE/j2seTests/net/sharkfw/security/pki/storage/filesystem/*.java      $TEST/net/sharkfw/security/pki/storage/filesystem/
+ln -s $SOURCE/j2seTests/net/sharkfw/security/utility/*.java                     $TEST/net/sharkfw/security/utility/

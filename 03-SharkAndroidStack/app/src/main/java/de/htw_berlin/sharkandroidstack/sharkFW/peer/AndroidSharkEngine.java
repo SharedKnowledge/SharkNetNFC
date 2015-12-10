@@ -67,6 +67,7 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
 
     @Override
     public void startNfc() throws SharkProtocolNotSupportedException, IOException {
+        //TODO: test via NFC devices
         this.createNfcStreamStub(this.getKepStub()).start();
     }
 
