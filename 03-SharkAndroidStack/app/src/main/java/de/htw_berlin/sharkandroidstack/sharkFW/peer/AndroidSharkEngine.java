@@ -15,11 +15,11 @@ import net.sharkfw.system.SharkSecurityException;
 
 import java.io.IOException;
 
-public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
-    //TODO: extract wifi stuff
+import de.htw_berlin.sharkandroidstack.sharkFW.protocols.nfc.NfcStreamStub;
 
-    WifiDirectStreamStub _wifi;
-    private Context _context;
+public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
+    Context _context;
+    Stub currentStub;
 
     public AndroidSharkEngine(Context context) {
         super();
@@ -38,12 +38,16 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
 
     @Override
     protected Stub createWifiDirectStreamStub(KEPStub kepStub) throws SharkProtocolNotSupportedException {
-        if (_wifi != null) {
-            _wifi.stop();
+        if (currentStub != null) {
+            currentStub.stop();
         }
-        _wifi = new WifiDirectStreamStub(getContext(), this, kepStub);
-        _wifi.start();
-        return _wifi;
+        currentStub = new WifiDirectStreamStub(getContext(), this, kepStub);
+        try {
+            currentStub.start();
+        } catch (IOException e) {
+            e.printStackTrace(); //TODO: why is WifiDirectStreamStub.start() without IOException?
+        }
+        return currentStub;
     }
 
     @Override
@@ -52,15 +56,26 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
     }
 
     public void stopWifiDirect() throws SharkProtocolNotSupportedException {
-        _wifi.stop();
+        currentStub.stop();
     }
 
+    //    @Override
+    protected Stub createNfcStreamStub(KEPStub kepStub) throws SharkProtocolNotSupportedException, IOException {
+        if (currentStub != null) {
+            currentStub.stop();
+        }
+        currentStub = new NfcStreamStub(getContext(), this, kepStub);
+        currentStub.start();
+        return currentStub;
+    }
+
+
     public void startNfc() throws SharkProtocolNotSupportedException, IOException {
-        throw new SharkProtocolNotSupportedException("TODO: Mario");
+        this.createNfcStreamStub(this.getKepStub());
     }
 
     public void stopNfc() throws SharkProtocolNotSupportedException {
-        throw new SharkProtocolNotSupportedException("TODO: Mario");
+        currentStub.stop();
     }
 
     public void startBluetooth() throws SharkProtocolNotSupportedException, IOException {
@@ -76,8 +91,9 @@ public class AndroidSharkEngine extends J2SEAndroidSharkEngine {
                               KnowledgePort kp) throws SharkSecurityException, SharkKBException,
             IOException {
 
-        if (_wifi != null) {
-            recipient.setAddresses(new String[]{_wifi.getConnectionStr()});
+        if (currentStub != null && currentStub instanceof WifiDirectStreamStub) {
+            WifiDirectStreamStub wifiStub = (WifiDirectStreamStub) currentStub;
+            recipient.setAddresses(new String[]{wifiStub.getConnectionStr()});
         }
 
         super.sendKnowledge(k, recipient, kp);

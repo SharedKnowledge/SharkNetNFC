@@ -1,5 +1,9 @@
 package de.htw_berlin.sharkandroidstack.sharkFW.protocols.nfc;
 
+import android.content.Context;
+
+import net.sharkfw.kep.KEPStub;
+import net.sharkfw.peer.SharkEngine;
 import net.sharkfw.protocols.RequestHandler;
 import net.sharkfw.protocols.StreamConnection;
 import net.sharkfw.protocols.StreamStub;
@@ -7,6 +11,10 @@ import net.sharkfw.protocols.StreamStub;
 import java.io.IOException;
 
 public class NfcStreamStub implements StreamStub {
+    public NfcStreamStub(Context context, SharkEngine sharkEngine, KEPStub kepStub) {
+
+    }
+
     @Override
     public StreamConnection createStreamConnection(String addressString) throws IOException {
         return null;
