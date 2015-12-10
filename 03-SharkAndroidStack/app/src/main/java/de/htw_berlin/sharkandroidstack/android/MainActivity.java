@@ -16,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
     static SharkStack sharkStack;
     KbTextViewWriter kbTextViewWriter;
 
+//    EditText inputEditText;
+//    Button sendButton;
+
     TextView outputHeader;
     boolean isShowingLogOutput = false;
     View.OnClickListener toggleClickListener = new View.OnClickListener() {
@@ -53,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (outputHeader == null) {
             outputHeader = (TextView) findViewById(R.id.outputHeader);
+//            inputEditText= (EditText) findViewById(R.id.inputEditText);
+//            sendButton= (Button) findViewById(R.id.send);
+//            sendButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    String input = inputEditText.getText().toString();
+//                    //TODO: Basic chat module?
+//                    //TODO: wrap as Interest and add to KB, sync KB, ....
+//                }
+//            });
         }
 
         if (sharkStack == null) {
