@@ -15,9 +15,10 @@ public class MainActivity extends AppCompatActivity {
 
     static SharkStack sharkStack;
     KbTextViewWriter kbTextViewWriter;
-    View.OnClickListener toggleClickListener = new View.OnClickListener() {
 
-        boolean showLog = false;
+    TextView outputHeader;
+    boolean showLog = false;
+    View.OnClickListener toggleClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View view) {
@@ -26,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
             Button button = (Button) view;
 
             if (showLog) {
-                button.setText("show log");
+                button.setText("show Log");
                 kbTextViewWriter.showKbText();
             } else {
-                button.setText("show kb");
+                button.setText("show KB");
                 kbTextViewWriter.showLogText();
             }
+
+            setOutputHeader();
         }
     };
 
@@ -40,26 +43,43 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         TextView nameView = (TextView) findViewById(R.id.nameTextView);
-        nameView.setText("id:" + deviceId);
+        nameView.setText(getDeviceId());
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        outputHeader = (TextView) findViewById(R.id.outputHeader);
+        setOutputHeader();
 
         if (sharkStack == null) {
             kbTextViewWriter = KbTextViewWriter.getInstance();
 
-            sharkStack = new SharkStack(this, deviceId).setTextViewWriter(kbTextViewWriter).start();
+            sharkStack = new SharkStack(this, getDeviceId()).setTextViewWriter(kbTextViewWriter).start();
 
             kbTextViewWriter.setOutputTextView((TextView) findViewById(R.id.outputTextView));
             findViewById(R.id.toogleLog).setOnClickListener(toggleClickListener);
         }
     }
 
+    private void setOutputHeader() {
+        String headerText = showLog ? "Log" : "KB";
+        outputHeader.setText(headerText);
+    }
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         if (sharkStack != null) {
             sharkStack.stop();
             sharkStack = null;
         }
+    }
+
+    private String getDeviceId() {
+        return Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 }
