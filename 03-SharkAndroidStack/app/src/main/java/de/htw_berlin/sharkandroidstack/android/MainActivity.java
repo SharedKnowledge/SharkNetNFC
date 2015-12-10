@@ -45,9 +45,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView nameView = (TextView) findViewById(R.id.nameTextView);
-        nameView.setText(getDeviceId());
-
+        TextView inputHeader = (TextView) findViewById(R.id.inputHeader);
+        inputHeader.setText("Your Name: " + getDeviceId() + ", Input:");
     }
 
     @Override
