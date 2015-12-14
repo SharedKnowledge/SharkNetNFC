@@ -2,7 +2,6 @@ package de.htw_berlin.sharkandroidstack.android;
 
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,7 +10,7 @@ import de.htw_berlin.sharkandroidstack.R;
 import de.htw_berlin.sharkandroidstack.setup.SharkStack;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ParentActivity {
 
     static SharkStack sharkStack;
     KbTextViewWriter kbTextViewWriter;
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 //                @Override
 //                public void onClick(View v) {
 //                    String input = inputEditText.getText().toString();
-//                    //TODO: Basic chat module?
+//                    //TODO: connect to Basic chat module?
 //                    //TODO: wrap as Interest and add to KB, sync KB, ....
 //                }
 //            });
