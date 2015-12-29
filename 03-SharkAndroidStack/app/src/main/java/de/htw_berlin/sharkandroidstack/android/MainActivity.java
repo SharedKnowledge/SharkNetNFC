@@ -43,7 +43,8 @@ public class MainActivity extends ParentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //TODO: set custom layout...
+        //setContentView(R.layout.activity_main);
 
         TextView inputHeader = (TextView) findViewById(R.id.inputHeader);
         inputHeader.setText("Your Name: " + getDeviceId() + ", Input:");

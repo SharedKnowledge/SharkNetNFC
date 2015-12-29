@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SharkAndroidStack</string>
+    <string name="app_name">Shark</string>
+    <string name="sidenav_drawer_open">open</string>
+    <string name="sidenav_drawer_close">close</string>
 </resources>
