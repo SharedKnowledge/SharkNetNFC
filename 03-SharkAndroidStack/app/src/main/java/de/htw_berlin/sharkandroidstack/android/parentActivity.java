@@ -1,5 +1,6 @@
 package de.htw_berlin.sharkandroidstack.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,8 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import de.htw_berlin.sharkandroidstack.R;
+import de.htw_berlin.sharkandroidstack.system_modules.SettingsActivity;
 
-import static android.support.design.widget.NavigationView.*;
+import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class ParentActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
 
@@ -24,8 +26,7 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.sidenav_drawer_open, R.string.sidenav_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.sidenav_drawer_open, R.string.sidenav_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -61,15 +62,16 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.sidenav_menu_item_settings) {
-            // Handle the camera action
+        switch (id) {
+            case R.id.sidenav_menu_item_settings:
+                this.startActivity(new Intent(this, SettingsActivity.class));
+                break;
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
