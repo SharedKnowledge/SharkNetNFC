@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Shark</string>
+
     <string name="sidenav_drawer_open">open</string>
     <string name="sidenav_drawer_close">close</string>
+
+    <string name="sidenav_menu_cat1">Modules</string>
+    <string name="sidenav_menu_item_nfc">NFC benchmark</string>
+    <string name="sidenav_menu_item_settings">Settings</string>
 </resources>

@@ -1,4 +1,4 @@
-package de.htw_berlin.sharkandroidstack.android;
+package de.htw_berlin.nfc_benchmark_module;
 
 import android.os.Bundle;
 import android.provider.Settings;
@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import de.htw_berlin.sharkandroidstack.R;
+import de.htw_berlin.sharkandroidstack.android.KbTextViewWriter;
+import de.htw_berlin.sharkandroidstack.android.ParentActivity;
 import de.htw_berlin.sharkandroidstack.setup.SharkStack;
 
 
