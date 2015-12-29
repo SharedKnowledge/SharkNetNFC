@@ -17,6 +17,9 @@
             <item
                 android:id="@+id/sidenav_menu_item_nfc"
                 android:title="@string/sidenav_menu_item_nfc" />
+            <item
+                android:id="@+id/sidenav_menu_item_mariodemo"
+                android:title="@string/sidenav_menu_item_mariodemo" />
         </menu>
     </item>
 
