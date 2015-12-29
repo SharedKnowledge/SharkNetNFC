@@ -1,4 +1,4 @@
-package de.htw_berlin.nfc_benchmark_module;
+package de.htw_berlin.sharkandroidstack.modules.nfc_benchmark;
 
 import android.os.Bundle;
 import android.provider.Settings;
