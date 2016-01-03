@@ -16,8 +16,10 @@
     <string name="title_activity_mariodemo">Demo Activity</string>
 
     <!-- modules / activities -->
+    <!--   intro -->
     <string name="activity_intro_text">Welcome to our Shark Demo App.\nSlide from left to right to discover Settings\nand available Modules.</string>
 
+    <!--   settings -->
     <string name="pref_sms_storage_title">dd</string>
     <string name="pref_summary_auto_delete">dd1</string>
     <string name="pref_title_auto_delete">dd2</string>
@@ -25,6 +27,7 @@
     <string name="pref_title_sms_delete">asdc</string>
     <string name="pref_title_mms_delete">adsc</string>
 
-    <string name="action_settings">asdcdsc</string>
-    <string name="action_favorite">ascsdc</string>
+    <!--   mariodemo -->
+    <string name="mariodemo_menu_item_example">Settings</string>
+    <string name="marioodemo_menu_item_details">Favorite</string>
 </resources>
