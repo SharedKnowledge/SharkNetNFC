@@ -20,12 +20,8 @@
     <string name="activity_intro_text">Welcome to our Shark Demo App.\nSlide from left to right to discover Settings\nand available Modules.</string>
 
     <!--   settings -->
-    <string name="pref_sms_storage_title">dd</string>
-    <string name="pref_summary_auto_delete">dd1</string>
-    <string name="pref_title_auto_delete">dd2</string>
-    <string name="pref_summary_delete_limit">asdc</string>
-    <string name="pref_title_sms_delete">asdc</string>
-    <string name="pref_title_mms_delete">adsc</string>
+    <string name="system_modules_settings_title_cat_kb">KnowledgeBase</string>
+    <string name="system_modules_settings_title_kb">Choose your KnowlegdeBase</string>
 
     <!--   mariodemo -->
     <string name="mariodemo_menu_item_example">Settings</string>
