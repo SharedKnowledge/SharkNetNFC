@@ -14,6 +14,7 @@ public class MarioDemoMainActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
 
         setLayoutResource(R.layout.module_mariodemo_activity);
+        // xor: setFragment(new MyFragment)
 
         //action bar menu 1/2:
         setOptionsMenu(R.menu.module_mariodemo_menu);
