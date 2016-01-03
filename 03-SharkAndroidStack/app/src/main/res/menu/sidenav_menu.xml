@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/sidenav_menu_system">
+    <item android:title="@string/sidenav_menu_cat_system">
         <menu>
             <item
                 android:id="@+id/sidenav_menu_item_settings"
@@ -12,7 +12,7 @@
         </menu>
     </item>
 
-    <item android:title="@string/sidenav_menu_cat1">
+    <item android:title="@string/sidenav_menu_cat_modules">
         <menu>
             <item
                 android:id="@+id/sidenav_menu_item_nfc"

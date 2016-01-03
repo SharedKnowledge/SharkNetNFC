@@ -12,7 +12,7 @@ import de.htw_berlin.sharkandroidstack.android.ParentActivity;
 import de.htw_berlin.sharkandroidstack.setup.SharkStack;
 
 
-public class MainActivity extends ParentActivity {
+public class NfcBenchmarkMainActivity extends ParentActivity {
 
     static SharkStack sharkStack;
     KbTextViewWriter kbTextViewWriter;

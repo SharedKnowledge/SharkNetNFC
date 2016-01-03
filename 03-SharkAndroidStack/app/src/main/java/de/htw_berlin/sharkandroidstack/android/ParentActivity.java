@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import de.htw_berlin.sharkandroidstack.R;
+import de.htw_berlin.sharkandroidstack.modules.mariodemo.MarioDemoMainActivity;
 import de.htw_berlin.sharkandroidstack.system_modules.settings.SettingsActivity;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
@@ -32,7 +33,7 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_parent);
+        setContentView(R.layout.system_parent_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -108,7 +109,7 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
                 intent = new Intent(this, SettingsActivity.class);
                 break;
             case R.id.sidenav_menu_item_mariodemo:
-                intent = new Intent(this, de.htw_berlin.sharkandroidstack.modules.mariodemo.MainActivity.class);
+                intent = new Intent(this, MarioDemoMainActivity.class);
         }
 
         if (intent != null) {
