@@ -11,6 +11,6 @@ public class MainIntroActivity extends ParentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        includeLayout(R.layout.activity_intro);
+        includeResource(R.layout.activity_intro);
     }
 }

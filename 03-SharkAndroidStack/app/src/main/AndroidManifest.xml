@@ -33,7 +33,7 @@
         <activity android:name=".android.PKIManagerActivity" />
 
         <activity
-            android:name=".system_modules.SettingsActivity"
+            android:name=".system_modules.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar" />
 

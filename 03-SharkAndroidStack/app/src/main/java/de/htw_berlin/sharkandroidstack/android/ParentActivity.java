@@ -1,5 +1,6 @@
 package de.htw_berlin.sharkandroidstack.android;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,11 +16,17 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import de.htw_berlin.sharkandroidstack.R;
-import de.htw_berlin.sharkandroidstack.system_modules.SettingsActivity;
+import de.htw_berlin.sharkandroidstack.system_modules.settings.SettingsActivity;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class ParentActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
+
+    public static final int LAYOUT_OPTION_RESOURCE = 1;
+    public static final int LAYOUT_OPTION_FRAGMENT = 2;
+    public static final int LAYOUT_OPTION_NULL = -1;
+
+    int layoutInUse = LAYOUT_OPTION_NULL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +46,27 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    protected void includeLayout(int resource) {
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.include);
-        ViewGroup rootView = (ViewGroup) findViewById(R.id.include).getRootView();
+    protected void includeResource(int resource) {
+        checkIfLayoutIsUsed(LAYOUT_OPTION_RESOURCE);
+        View includeContainer = findViewById(R.id.include);
+
+        RelativeLayout rl = (RelativeLayout) includeContainer;
+        ViewGroup rootView = (ViewGroup) includeContainer.getRootView();
         View inflate = getLayoutInflater().inflate(resource, rootView, false);
         rl.addView(inflate);
+    }
+
+    protected void includeFragment(Fragment fragment) {
+        checkIfLayoutIsUsed(LAYOUT_OPTION_FRAGMENT);
+
+        getFragmentManager().beginTransaction().replace(R.id.include, fragment).commit();
+    }
+
+    private void checkIfLayoutIsUsed(int layoutOption) {
+        if (layoutInUse != LAYOUT_OPTION_NULL) {
+            throw new IllegalStateException("Layout is in use already.");
+        }
+        layoutInUse = layoutOption;
     }
 
     @Override
