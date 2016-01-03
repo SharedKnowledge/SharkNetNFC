@@ -24,4 +24,7 @@
     <string name="pref_summary_delete_limit">asdc</string>
     <string name="pref_title_sms_delete">asdc</string>
     <string name="pref_title_mms_delete">adsc</string>
+
+    <string name="action_settings">asdcdsc</string>
+    <string name="action_favorite">ascsdc</string>
 </resources>

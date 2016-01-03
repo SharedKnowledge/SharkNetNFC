@@ -27,7 +27,8 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
     public static final int LAYOUT_OPTION_FRAGMENT = 2;
     public static final int LAYOUT_OPTION_NULL = -1;
 
-    int layoutInUse = LAYOUT_OPTION_NULL;
+    private int layoutInUse = LAYOUT_OPTION_NULL;
+    private int optionsMenuResource = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    protected void includeResource(int resource) {
+    protected void setLayoutResource(int resource) {
         checkIfLayoutIsUsed(LAYOUT_OPTION_RESOURCE);
         View includeContainer = findViewById(R.id.include);
 
@@ -57,15 +58,19 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
         rl.addView(inflate);
     }
 
-    protected void includeFragment(Fragment fragment) {
+    protected void setFragment(Fragment fragment) {
         checkIfLayoutIsUsed(LAYOUT_OPTION_FRAGMENT);
 
         getFragmentManager().beginTransaction().replace(R.id.include, fragment).commit();
     }
 
+    protected void setOptionsMenu(int resource) {
+        optionsMenuResource = resource;
+    }
+
     private void checkIfLayoutIsUsed(int layoutOption) {
         if (layoutInUse != LAYOUT_OPTION_NULL) {
-            throw new IllegalStateException("Layout is in use already.");
+            throw new IllegalStateException("Layout already set.");
         }
         layoutInUse = layoutOption;
     }
@@ -82,20 +87,11 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.topbar_menu, menu);
+        if (optionsMenuResource <= 0) {
+            return false;
+        }
+        getMenuInflater().inflate(optionsMenuResource, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-//        if (id == R.id...) {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -11,6 +11,6 @@ public class SettingsActivity extends ParentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        includeFragment(new SettingsFragment());
+        setFragment(new SettingsFragment());
     }
 }
