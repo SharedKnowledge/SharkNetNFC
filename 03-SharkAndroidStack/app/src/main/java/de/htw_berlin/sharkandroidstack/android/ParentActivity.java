@@ -33,6 +33,8 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
     private int layoutInUse = LAYOUT_OPTION_NULL;
     private int optionsMenuResource = 0;
 
+    private static int checkedMenuItemId = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +66,11 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
         SubMenu test = menu.addSubMenu(categoryNameResource);
         for (int i = 0; i < entries.length; i++) {
             String[] entry = entries[i];
-            test.add(uniqueGroupId, i + uniqueGroupId, i, entry[0]);
+            int uniqueItemId = i + uniqueGroupId;
+            MenuItem menuItem = test.add(uniqueGroupId, uniqueItemId, i, entry[0]);
+            if (uniqueItemId == checkedMenuItemId) {
+                menuItem.setChecked(true);
+            }
         }
         menu.setGroupCheckable(uniqueGroupId, true, true);
     }
@@ -117,30 +123,34 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        if (item.getItemId() == checkedMenuItemId) {
+            return false;
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
-        int id = item.getItemId() - item.getGroupId();
+        int normalizedItemId = item.getItemId() - item.getGroupId();
         String[][] entries = item.getGroupId() == UNIQUE_GROUP_ID_SYSTEM_MODULES ? SideNav.system_modules : SideNav.modules;
-        String[] entry = entries[id];
+        String[] entry = entries[normalizedItemId];
         String entryName = entry[0];
         String className = entry[1];
 
-        if (className != null) {
-            item.setChecked(true);
-            try {
-                Class aClass = Class.forName(getBaseContext().getPackageName() + "." + className);
-                Intent intent = new Intent(this, aClass);
-                this.startActivity(intent);
-                return true;
-            } catch (ClassNotFoundException e) {
-                Toast.makeText(this, "Class not found for item " + entryName, Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-                return false;
-            }
+        if (className == null) {
+            return false;
         }
 
-        return false;
+        checkedMenuItemId = item.getItemId();
+
+        try {
+            Class aClass = Class.forName(getBaseContext().getPackageName() + "." + className);
+            Intent intent = new Intent(this, aClass);
+            this.startActivity(intent);
+        } catch (ClassNotFoundException e) {
+            Toast.makeText(this, "Class not found for item " + entryName, Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }
