@@ -22,8 +22,12 @@
     <!--   settings -->
     <string name="system_modules_settings_title_cat_kb">KnowledgeBase</string>
     <string name="system_modules_settings_title_kb">Choose your KnowlegdeBase</string>
+    <string name="system_modules_settings_title_cat_connection">Connection</string>
+    <string name="system_modules_settings_title_connection">Choose your connection type</string>
+
 
     <!--   mariodemo -->
     <string name="mariodemo_menu_item_example">Settings</string>
     <string name="marioodemo_menu_item_details">Favorite</string>
+
 </resources>

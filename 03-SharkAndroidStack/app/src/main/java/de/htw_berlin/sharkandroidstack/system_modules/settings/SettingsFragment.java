@@ -28,7 +28,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         for (Map.Entry<String, ?> entry : allPreferences.entrySet()) {
             setSummaryOfListPreference(entry.getKey());
         }
-
     }
 
     @Override
@@ -41,6 +40,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         //String prefValue = sharedPreferences.getString(key, "");
         setSummaryOfListPreference(key);
+        //TODO: act on settings change
 
     }
 

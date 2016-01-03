@@ -8,4 +8,15 @@
         <item>random</item>
         <item>aliceBob</item>
     </string-array>
+
+    <string-array name="system_modules_settings_connection_options">
+        <item>NFC</item>
+        <item>Bluetooth</item>
+        <item>Wifi-Direct</item>
+    </string-array>
+    <string-array name="system_modules_settings_connection_options_values">
+        <item>nfc</item>
+        <item>bt</item>
+        <item>wifiDirect</item>
+    </string-array>
 </resources>
