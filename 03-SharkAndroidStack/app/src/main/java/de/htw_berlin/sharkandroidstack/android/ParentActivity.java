@@ -36,6 +36,8 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
 
         setContentView(R.layout.system_parent_activity);
 
+        overridePendingTransition(R.anim.in_left_to_right, R.anim.out_right_to_left);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
