@@ -32,15 +32,17 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
     public static final int UNIQUE_GROUP_ID_SYSTEM_MODULES = 37820;
     public static final int UNIQUE_GROUP_ID_MODULES = 67820;
 
+    public static final String EXTRA_MENU_ITEM_ID = "EXTRA_MENU_ITEM_ID";
+
     private int layoutInUse = LAYOUT_OPTION_NULL;
     private int optionsMenuResource = 0;
 
-    private static int checkedMenuItemId = 0;
+    private Menu menu;
+    private int menuItemId;
 
     private static View.OnClickListener returnToIntroClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            checkedMenuItemId = 0;
             Context context = v.getContext();
             Intent intent = new Intent(context, IntroActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -56,7 +58,7 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
 
         overridePendingTransition(R.anim.in_left_to_right, R.anim.out_right_to_left);
 
-        Menu menu = installActionBarAndSideNavDrawer();
+        menu = installActionBarAndSideNavDrawer();
         fillSideNavDrawerWithModules(menu, SideNav.system_modules, UNIQUE_GROUP_ID_SYSTEM_MODULES, R.string.sidenav_menu_cat_system);
         fillSideNavDrawerWithModules(menu, SideNav.modules, UNIQUE_GROUP_ID_MODULES, R.string.sidenav_menu_cat_modules);
     }
@@ -82,12 +84,39 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
         for (int i = 0; i < entries.length; i++) {
             String[] entry = entries[i];
             int uniqueItemId = i + uniqueGroupId;
-            MenuItem menuItem = test.add(uniqueGroupId, uniqueItemId, i, entry[0]);
-            if (uniqueItemId == checkedMenuItemId) {
-                menuItem.setChecked(true);
-            }
+            test.add(uniqueGroupId, uniqueItemId, i, entry[0]);
         }
         menu.setGroupCheckable(uniqueGroupId, true, true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        menuItemId = getIntent().getIntExtra(EXTRA_MENU_ITEM_ID, -1);
+
+        if (menuItemId < 0) {
+            return;
+        }
+
+        int size = menu.size();
+        for (int i = 0; i < size; i++) {
+            SubMenu submenu = menu.getItem(i).getSubMenu();
+            int size1 = submenu.size();
+            for (int j = 0; j < size1; j++) {
+                MenuItem item = submenu.getItem(j);
+                if (item.getItemId() == menuItemId) {
+                    item.setChecked(true);
+                } else {
+                    item.setChecked(false);
+                }
+            }
+        }
     }
 
     protected void setOptionsMenu(int resource) {
@@ -122,7 +151,7 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        if (item.getItemId() == checkedMenuItemId) {
+        if (item.getItemId() == menuItemId) {
             return false;
         }
 
@@ -139,11 +168,10 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
             return false;
         }
 
-        checkedMenuItemId = item.getItemId();
-
         try {
             Class aClass = Class.forName(getBaseContext().getPackageName() + "." + className);
             Intent intent = new Intent(this, aClass);
+            intent.putExtra(EXTRA_MENU_ITEM_ID, item.getItemId());
             this.startActivity(intent);
         } catch (ClassNotFoundException e) {
             Toast.makeText(this, "Class not found for item " + entryName, Toast.LENGTH_LONG).show();
