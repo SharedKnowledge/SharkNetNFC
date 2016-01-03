@@ -1,6 +1,7 @@
 package de.htw_berlin.sharkandroidstack.android;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import de.htw_berlin.sharkandroidstack.R;
+import de.htw_berlin.sharkandroidstack.system_modules.intro.IntroActivity;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
@@ -34,6 +36,17 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
     private int optionsMenuResource = 0;
 
     private static int checkedMenuItemId = 0;
+
+    private static View.OnClickListener returnToIntroClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            checkedMenuItemId = 0;
+            Context context = v.getContext();
+            Intent intent = new Intent(context, IntroActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +71,8 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.sidenav_view);
+        View viewById = navigationView.getHeaderView(0).findViewById(R.id.sidenav_header_icon);
+        viewById.setOnClickListener(returnToIntroClickListener);
         navigationView.setNavigationItemSelectedListener(this);
         return navigationView.getMenu();
     }
