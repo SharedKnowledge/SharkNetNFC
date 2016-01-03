@@ -3,24 +3,27 @@
 
     <item android:title="@string/sidenav_menu_cat_system">
         <menu>
-            <item
-                android:id="@+id/sidenav_menu_item_settings"
-                android:title="@string/sidenav_menu_item_settings" />
-            <item
-                android:id="@+id/sidenav_menu_item_log"
-                android:title="@string/sidenav_menu_item_log" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sidenav_menu_item_settings"
+                    android:title="@string/sidenav_menu_item_settings" />
+                <item
+                    android:id="@+id/sidenav_menu_item_log"
+                    android:title="@string/sidenav_menu_item_log" />
+            </group>
         </menu>
     </item>
 
     <item android:title="@string/sidenav_menu_cat_modules">
         <menu>
-            <item
-                android:id="@+id/sidenav_menu_item_nfc"
-                android:title="@string/sidenav_menu_item_nfc" />
-            <item
-                android:id="@+id/sidenav_menu_item_mariodemo"
-                android:title="@string/sidenav_menu_item_mariodemo" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sidenav_menu_item_nfc"
+                    android:title="@string/sidenav_menu_item_nfc" />
+                <item
+                    android:id="@+id/sidenav_menu_item_mariodemo"
+                    android:title="@string/sidenav_menu_item_mariodemo" />
+            </group>
         </menu>
     </item>
-
 </menu>

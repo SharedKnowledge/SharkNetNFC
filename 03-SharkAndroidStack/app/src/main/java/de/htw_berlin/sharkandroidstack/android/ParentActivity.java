@@ -100,22 +100,25 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        Intent intent = null;
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        Class activity = null;
 
         switch (id) {
             case R.id.sidenav_menu_item_settings:
-                intent = new Intent(this, SettingsActivity.class);
+                activity = SettingsActivity.class;
                 break;
             case R.id.sidenav_menu_item_mariodemo:
-                intent = new Intent(this, MarioDemoMainActivity.class);
+                activity = MarioDemoMainActivity.class;
         }
 
-        if (intent != null) {
-            this.startActivity(intent);
+        if (activity != null) {
+            item.setChecked(true);
+            this.startActivity(new Intent(this, activity));
+            return true;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
 }
