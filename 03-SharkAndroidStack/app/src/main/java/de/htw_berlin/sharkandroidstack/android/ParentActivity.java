@@ -1,6 +1,7 @@
 package de.htw_berlin.sharkandroidstack.android;
 
 import android.app.Fragment;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -173,12 +174,15 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
             Intent intent = new Intent(this, aClass);
             intent.putExtra(EXTRA_MENU_ITEM_ID, item.getItemId());
             this.startActivity(intent);
+            return true;
         } catch (ClassNotFoundException e) {
-            Toast.makeText(this, "Class not found for item " + entryName, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Class not found for item '" + entryName + "'", Toast.LENGTH_LONG).show();
             e.printStackTrace();
-            return false;
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No activity declared in AndroidManifest for item " + entryName + "'", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
     protected void setLayoutResource(int resource) {

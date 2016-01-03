@@ -1,4 +1,4 @@
-package de.htw_berlin.sharkandroidstack;
+package de.htw_berlin.sharkandroidstack.android;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

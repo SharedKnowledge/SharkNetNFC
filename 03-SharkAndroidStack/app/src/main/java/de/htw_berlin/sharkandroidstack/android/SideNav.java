@@ -4,7 +4,7 @@ public class SideNav {
 
     public final static String[][] system_modules = new String[][]{
             new String[]{"Settings", "system_modules.settings.SettingsActivity"},
-            new String[]{"Log", null},
+            new String[]{"Log", "system_modules.log.LogActivity"},
     };
 
     public final static String[][] modules = new String[][]{
