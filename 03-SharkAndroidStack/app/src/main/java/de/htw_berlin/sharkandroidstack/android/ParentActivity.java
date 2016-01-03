@@ -90,22 +90,6 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
         menu.setGroupCheckable(uniqueGroupId, true, true);
     }
 
-    protected void setLayoutResource(int resource) {
-        checkIfLayoutIsUsed(LAYOUT_OPTION_RESOURCE);
-        View includeContainer = findViewById(R.id.include);
-
-        RelativeLayout rl = (RelativeLayout) includeContainer;
-        ViewGroup rootView = (ViewGroup) includeContainer.getRootView();
-        View inflate = getLayoutInflater().inflate(resource, rootView, false);
-        rl.addView(inflate);
-    }
-
-    protected void setFragment(Fragment fragment) {
-        checkIfLayoutIsUsed(LAYOUT_OPTION_FRAGMENT);
-
-        getFragmentManager().beginTransaction().replace(R.id.include, fragment).commit();
-    }
-
     protected void setOptionsMenu(int resource) {
         optionsMenuResource = resource;
     }
@@ -167,5 +151,22 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
             return false;
         }
         return true;
+    }
+
+    protected void setLayoutResource(int resource) {
+        checkIfLayoutIsUsed(LAYOUT_OPTION_RESOURCE);
+
+        View includeContainer = findViewById(R.id.include);
+
+        RelativeLayout rl = (RelativeLayout) includeContainer;
+        ViewGroup rootView = (ViewGroup) includeContainer.getRootView();
+        View inflate = getLayoutInflater().inflate(resource, rootView, false);
+        rl.addView(inflate);
+    }
+
+    protected void setFragment(Fragment fragment) {
+        checkIfLayoutIsUsed(LAYOUT_OPTION_FRAGMENT);
+
+        getFragmentManager().beginTransaction().replace(R.id.include, fragment).commit();
     }
 }
