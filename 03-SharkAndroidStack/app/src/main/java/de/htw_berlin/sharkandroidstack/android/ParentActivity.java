@@ -11,13 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import de.htw_berlin.sharkandroidstack.R;
-import de.htw_berlin.sharkandroidstack.modules.mariodemo.MarioDemoMainActivity;
-import de.htw_berlin.sharkandroidstack.system_modules.settings.SettingsActivity;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
@@ -26,6 +26,9 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
     public static final int LAYOUT_OPTION_RESOURCE = 1;
     public static final int LAYOUT_OPTION_FRAGMENT = 2;
     public static final int LAYOUT_OPTION_NULL = -1;
+
+    public static final int UNIQUE_GROUP_ID_SYSTEM_MODULES = 37820;
+    public static final int UNIQUE_GROUP_ID_MODULES = 67820;
 
     private int layoutInUse = LAYOUT_OPTION_NULL;
     private int optionsMenuResource = 0;
@@ -38,6 +41,12 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
 
         overridePendingTransition(R.anim.in_left_to_right, R.anim.out_right_to_left);
 
+        Menu menu = installActionBarAndSideNavDrawer();
+        fillSideNavDrawerWithModules(menu, SideNav.system_modules, UNIQUE_GROUP_ID_SYSTEM_MODULES, R.string.sidenav_menu_cat_system);
+        fillSideNavDrawerWithModules(menu, SideNav.modules, UNIQUE_GROUP_ID_MODULES, R.string.sidenav_menu_cat_modules);
+    }
+
+    private Menu installActionBarAndSideNavDrawer() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,6 +57,16 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.sidenav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        return navigationView.getMenu();
+    }
+
+    private void fillSideNavDrawerWithModules(Menu menu, String[][] entries, int uniqueGroupId, int categoryNameResource) {
+        SubMenu test = menu.addSubMenu(categoryNameResource);
+        for (int i = 0; i < entries.length; i++) {
+            String[] entry = entries[i];
+            test.add(uniqueGroupId, i + uniqueGroupId, i, entry[0]);
+        }
+        menu.setGroupCheckable(uniqueGroupId, true, true);
     }
 
     protected void setLayoutResource(int resource) {
@@ -98,25 +117,28 @@ public class ParentActivity extends AppCompatActivity implements OnNavigationIte
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
-        Class activity = null;
+        int id = item.getItemId() - item.getGroupId();
+        String[][] entries = item.getGroupId() == UNIQUE_GROUP_ID_SYSTEM_MODULES ? SideNav.system_modules : SideNav.modules;
+        String[] entry = entries[id];
+        String entryName = entry[0];
+        String className = entry[1];
 
-        switch (id) {
-            case R.id.sidenav_menu_item_settings:
-                activity = SettingsActivity.class;
-                break;
-            case R.id.sidenav_menu_item_mariodemo:
-                activity = MarioDemoMainActivity.class;
-        }
-
-        if (activity != null) {
+        if (className != null) {
             item.setChecked(true);
-            this.startActivity(new Intent(this, activity));
-            return true;
+            try {
+                Class aClass = Class.forName(getBaseContext().getPackageName() + "." + className);
+                Intent intent = new Intent(this, aClass);
+                this.startActivity(intent);
+                return true;
+            } catch (ClassNotFoundException e) {
+                Toast.makeText(this, "Class not found for item " + entryName, Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+                return false;
+            }
         }
 
         return false;
