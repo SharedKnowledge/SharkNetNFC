@@ -10,5 +10,6 @@ public class SideNav {
     public final static String[][] modules = new String[][]{
             new String[]{"NFC Benchmark", "modules.nfc_benchmark.NfcBenchmarkMainActivity"},
             new String[]{"Mario Demo", "modules.mariodemo.MarioDemoMainActivity"},
+            new String[]{"WifiDirect", "modules.wifidirect.WifiDirectMainActivity"},
     };
 }

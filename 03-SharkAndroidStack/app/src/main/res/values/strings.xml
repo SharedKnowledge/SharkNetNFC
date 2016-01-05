@@ -31,4 +31,5 @@
     <!--   mariodemo -->
     <string name="mariodemo_menu_item_example">Settings</string>
     <string name="marioodemo_menu_item_details">Favorite</string>
+    <string name="title_activity_wifi_direct_main">WifiDirectMainActivity</string>
 </resources>

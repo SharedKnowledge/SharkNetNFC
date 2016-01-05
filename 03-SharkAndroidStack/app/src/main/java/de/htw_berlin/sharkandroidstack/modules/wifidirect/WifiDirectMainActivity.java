@@ -1,7 +1,14 @@
-package de.htw_berlin.sharkandroidstack.modules.nfc_benchmark;
+package de.htw_berlin.sharkandroidstack.modules.wifidirect;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,14 +18,10 @@ import de.htw_berlin.sharkandroidstack.android.KbTextViewWriter;
 import de.htw_berlin.sharkandroidstack.android.ParentActivity;
 import de.htw_berlin.sharkandroidstack.setup.SharkStack;
 
-
-public class NfcBenchmarkMainActivity extends ParentActivity {
+public class WifiDirectMainActivity extends ParentActivity {
 
     static SharkStack sharkStack;
     KbTextViewWriter kbTextViewWriter;
-
-//    EditText inputEditText;
-//    Button sendButton;
 
     TextView outputHeader;
     boolean isShowingLogOutput = false;
@@ -45,12 +48,11 @@ public class NfcBenchmarkMainActivity extends ParentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO: set custom layout...
-        setLayoutResource(R.layout.module_nfc_benchmark_activity);
-        //setContentView(R.layout.activity_main);
 
-        TextView inputHeader = (TextView) findViewById(R.id.inputHeader);
-        inputHeader.setText("Your Name: " + getDeviceId() + ", Input:");
+        setLayoutResource(R.layout.module_wifi_direct_activity);
+
+        TextView deviceName = (TextView) findViewById(R.id.deviceName);
+        deviceName.setText("Your Name: " + getMACAddress());
     }
 
     @Override
@@ -59,18 +61,7 @@ public class NfcBenchmarkMainActivity extends ParentActivity {
 
         if (outputHeader == null) {
             outputHeader = (TextView) findViewById(R.id.outputHeader);
-//            inputEditText= (EditText) findViewById(R.id.inputEditText);
-//            sendButton= (Button) findViewById(R.id.send);
-//            sendButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    String input = inputEditText.getText().toString();
-//                    //TODO: connect to Basic chat module?
-//                    //TODO: wrap as Interest and add to KB, sync KB, ....
-//                }
-//            });
         }
-
         if (sharkStack == null) {
             kbTextViewWriter = KbTextViewWriter.getInstance();
 
@@ -90,6 +81,12 @@ public class NfcBenchmarkMainActivity extends ParentActivity {
             sharkStack.stop();
             sharkStack = null;
         }
+    }
+
+    private String getMACAddress(){
+        WifiManager manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = manager.getConnectionInfo();
+        return info.getMacAddress();
     }
 
     private String getDeviceId() {
